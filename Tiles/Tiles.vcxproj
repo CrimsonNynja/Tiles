@@ -159,8 +159,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GameSprite.h" />
+    <ClInclude Include="GameText.h" />
+    <ClInclude Include="ImageHandler.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SelectableUI.h" />
+    <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="UIElement.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Default.ini" />
