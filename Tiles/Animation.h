@@ -35,10 +35,10 @@ private:
 
 	sf::Clock Timer;
 	sf::Time TimeElapsed;
-	float animSpeed;
+	float animSpeed = 200;
 
 	int currentFrame = 0;
-	int maxFrame;
+	int maxFrame = 0;
 	bool bIsLooping = true;
 	bool bPaused = false;
 	bool bIsForwards = true;

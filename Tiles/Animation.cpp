@@ -42,8 +42,8 @@ void Animation::LoadAnimation(sf::Texture* SpriteSheet, int FrameWidth, int Fram
 		int Y = 0;
 
 		for (int i = 0; i < (virtical * horizontal); i++)
-		{
-			AnimFrames.push_back(sf::IntRect(X, Y, (frameWidth), (frameHeight)));
+		{		
+			AnimFrames.push_back(sf::IntRect(X, Y, (frameWidth), (frameHeight)));		//not resizing for some reason
 
 			X = X + FrameWidth;
 			if (X >= SpriteSheet->getSize().x)
@@ -94,6 +94,7 @@ int Animation::getCurrentFrame() const
 
 void Animation::Update()
 {
+	//setting max frames and animframes.size to null, no idea why
 	if (bPaused == false)
 	{
 		TimeElapsed = Timer.getElapsedTime();

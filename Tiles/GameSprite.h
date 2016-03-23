@@ -9,6 +9,7 @@ class GameSprite : public sf::Sprite
 public:
 	GameSprite();
 	void setDrawLayer(int Layer);
+	void setAnimation(sf::Texture* tex, int width, int height);
 	Animation* getAnimationComponent();
 	CollisionComponent* getCollisionComponent();
 	int getLayer() const;
