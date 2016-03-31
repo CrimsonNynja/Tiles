@@ -9,7 +9,7 @@ void Entity::MoveObject(float X, float Y)
 	setPosition(getPosition().x + X, getPosition().y + Y);
 }
 
-bool Entity::IsDead()
+bool Entity::IsDead() const
 {
 	return bIsDead;
 }
@@ -44,7 +44,7 @@ void Entity::setHealth(float amount)
 	health = amount;
 }
 
-float Entity::getHealth() 
+float Entity::getHealth() const 
 {
 	return health;
 }

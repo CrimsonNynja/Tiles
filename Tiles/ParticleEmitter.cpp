@@ -37,6 +37,14 @@ void ParticleEmitter::AddParticleImage(sf::Texture* tex, int width, int height)
 	}
 }
 
+void ParticleEmitter::setParticleDrawLayer(int Layer)
+{
+	for (int i = 0; i < Particles.size(); i ++)
+	{
+		Particles[i].setDrawLayer(Layer);
+	}
+}
+
 sf::Texture* ParticleEmitter::getParticleImage()
 {
 	return nullptr;//Particles[0].getTexture();
@@ -74,8 +82,9 @@ void ParticleEmitter::Update()
 		for (int i = 0; i < Particles.size(); i ++)
 		{
 			Particles[i].Update();
-			Particles[i].move(speed * std::sin(Particles[i].getRotation() * 3.14 / 2) + (static_cast<float> (rand()) / (static_cast<float> (RAND_MAX/0.5)))
-				, speed * std::cos(Particles[i].getRotation() * 3.14 / 2) + (static_cast<float> (rand()) / (static_cast<float> (RAND_MAX/0.5))));
+			Particles[i].move(((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::sin(Particles[i].getRotation() * 3.14 / 2)
+				, ((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::cos(Particles[i].getRotation() * 3.14 / 2));
+			//still need improving, currently it does even out, but only after a few cycles
 
 			if (DistanceBetweenPoints(Particles[i].getPosition().x, Particles[i].getPosition().y, x, y) >= particleDistance)
 			{

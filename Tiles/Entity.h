@@ -8,12 +8,12 @@ public:
 	Entity();
 	void MoveObject(float X, float Y);
 
-	bool IsDead();
+	bool IsDead() const;
 	void Damage(float damage);
 	void Heal(float amount);
 
 	void setHealth(float amount);
-	float getHealth();
+	float getHealth() const;
 
 protected:
 	bool bIsDead = false;
