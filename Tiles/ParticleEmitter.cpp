@@ -16,8 +16,8 @@ ParticleEmitter::ParticleEmitter(int maxParticles, int minParticles, float parti
 	srand(time(NULL));
 	for (int i = 0; i < Particles.size(); i ++)
 	{
-		Particles[i].setPosition(500, 500);
-		Particles[i].setRotation(rand() % 360);
+		Particles[i].setPosition(x, y);
+		Particles[i].setRotation(static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / 360.0)));
 	}
 }
 
@@ -31,21 +31,9 @@ void ParticleEmitter::AddParticleImage(sf::Texture* tex)
 
 void ParticleEmitter::AddParticleImage(sf::Texture* tex, int width, int height)
 {
-//	srand(time(NULL));
-//	for (auto x : Particles)
-//	{
-//		x.setPosition(500, 500);
-//		x.setRotation(rand() % 360);
-//
-//	}
-
-	//for (auto x : Particles)
 	for (int i = 0; i < Particles.size(); i ++)
 	{
 		Particles[i].setAnimation(tex, width, height);
-	//	x.setPosition(500, 500);
-	//	std::cout << x.getRotation() << std::endl;
-
 	}
 }
 
@@ -86,16 +74,13 @@ void ParticleEmitter::Update()
 		for (int i = 0; i < Particles.size(); i ++)
 		{
 			Particles[i].Update();
-			Particles[i].move(speed * std::cos(Particles[i].getRotation() * 3.14 / 2), speed * std::sin(Particles[i].getRotation() * 3.14 / 2));
+			Particles[i].move(speed * std::sin(Particles[i].getRotation() * 3.14 / 2) + (static_cast<float> (rand()) / (static_cast<float> (RAND_MAX/0.5)))
+				, speed * std::cos(Particles[i].getRotation() * 3.14 / 2) + (static_cast<float> (rand()) / (static_cast<float> (RAND_MAX/0.5))));
 
 			if (DistanceBetweenPoints(Particles[i].getPosition().x, Particles[i].getPosition().y, x, y) >= particleDistance)
 			{
 				Particles[i].setPosition(x, y);
-				srand(time(NULL));
-				for (int i = 0; i < Particles.size(); i++)
-				{
-					Particles[i].setRotation(rand() % 360);
-				}
+				Particles[i].setRotation(static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / 360.0)));
 			}
 		}
 	}

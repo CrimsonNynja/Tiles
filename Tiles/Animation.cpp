@@ -94,7 +94,6 @@ int Animation::getCurrentFrame() const
 
 void Animation::Update()
 {
-	//setting max frames and animframes.size to null, no idea why
 	if (bPaused == false)
 	{
 		TimeElapsed = Timer.getElapsedTime();
