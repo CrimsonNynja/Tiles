@@ -7,7 +7,7 @@
 #include <math.h>
 #include <time.h>
 
-class ParticleEmitter// : public GameSprite
+class ParticleEmitter : public sf::Drawable
 {
 public:
 	ParticleEmitter();
@@ -21,7 +21,7 @@ public:
 	void Stop();
 	void Start();
 	void setPosition(float x, float y);
-	void Draw(sf::RenderWindow& window);		//may make return teh vector of game sprites
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void Update();
 
 private:
@@ -29,8 +29,8 @@ private:
 
 	std::vector<GameSprite> Particles;
 
-	float x = 500;
-	float y = 500;
+	float x = 0;
+	float y = 0;
 
 	int maxParticles;
 	int minParticles;

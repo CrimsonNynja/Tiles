@@ -67,11 +67,11 @@ void ParticleEmitter::setPosition(float x, float y)
 	this->Update();
 }
 
-void ParticleEmitter::Draw(sf::RenderWindow & window)
+void ParticleEmitter::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	for (auto x: Particles)
+	for (auto x : Particles)
 	{
-		window.draw(x);
+		target.draw(x);
 	}
 }
 
@@ -82,8 +82,8 @@ void ParticleEmitter::Update()
 		for (int i = 0; i < Particles.size(); i ++)
 		{
 			Particles[i].Update();
-			Particles[i].move(((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::sin(Particles[i].getRotation() * 3.14 / 2)
-				, ((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::cos(Particles[i].getRotation() * 3.14 / 2));
+			Particles[i].move(((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::cos(Particles[i].getRotation() * 3.14 / 2)
+				, ((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::sin(Particles[i].getRotation() * 3.14 / 2));
 			//still need improving, currently it does even out, but only after a few cycles
 
 			if (DistanceBetweenPoints(Particles[i].getPosition().x, Particles[i].getPosition().y, x, y) >= particleDistance)

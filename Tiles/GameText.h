@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
@@ -11,13 +13,21 @@ public:
 	void Throb(float Size, float Speed);
 	void Shrink(float Size, float Speed);
 	void Grow(float Size, float Speed);
-	//add a colout morph function, that can be used while the other 3 are in effect
+	void ChangeColour(sf::Color ColourToChengeTo);
 	void Stop();
 	void Update();
 
 private:
+	void NFP(float a, float b) {};
+
 	sf::Clock Timer;
 	sf::Time TimeElapsed;
+
+	void(GameText::*FunctPointer)(float, float) = NULL;
+	bool bShrink = false;
+
+	float size = 1;
+	float speed = 1000;
 
 	bool bActive = false;
 
