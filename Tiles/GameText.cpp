@@ -16,7 +16,6 @@ void GameText::Throb(float Size, float Speed)
 {
 	float sizeRate = Size / Speed;
 
-
 	if (FunctPointer != &GameText::Throb)
 	{
 		FunctPointer = &GameText::Throb;
@@ -56,13 +55,11 @@ void GameText::Shrink(float Size, float Speed)
 	}
 	else
 	{
-		float shrinkRate = (Size / Speed) / 2;
+		float shrinkRate = (Size / Speed);
 		this->setScale(getScale().x - shrinkRate, getScale().y - shrinkRate);
 
 		if (this->getScale().x <= Size)
 		{
-			std::cout << this->getScale().x << std::endl;
-
 			FunctPointer = &GameText::NFP;
 		}
 	}
@@ -84,8 +81,6 @@ void GameText::Grow(float Size, float Speed)
 
 		if (this->getScale().x >= Size)	
 		{
-			std::cout << this->getScale().x << std::endl;
-
 			FunctPointer = &GameText::NFP;
 		}
 	}

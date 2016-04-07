@@ -33,7 +33,7 @@ void Button::CenterText()
 {
 	localX = (this->getGlobalBounds().width / 2) - (ButtonTextPtr->getGlobalBounds().width / 2);
 	localY = (this->getGlobalBounds().height / 2) - (ButtonTextPtr->getGlobalBounds().height);// /2 SFML ERROR HERE CANT FIX, found work arround
-	std::cout << ButtonTextPtr->getGlobalBounds().height << std::endl;
+	//std::cout << ButtonTextPtr->getGlobalBounds().height << std::endl;
 }
 
 GameText* Button::getText() const

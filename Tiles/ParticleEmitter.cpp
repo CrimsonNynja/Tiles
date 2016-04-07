@@ -37,9 +37,17 @@ void ParticleEmitter::AddParticleImage(sf::Texture* tex, int width, int height)
 	}
 }
 
+void ParticleEmitter::setHidden(bool bTrue)
+{
+	for (unsigned int i = 0; i < Particles.size(); i ++)
+	{
+		Particles[i].setHidden(bTrue);
+	}
+}
+
 void ParticleEmitter::setParticleDrawLayer(int Layer)
 {
-	for (int i = 0; i < Particles.size(); i ++)
+	for (unsigned int i = 0; i < Particles.size(); i ++)
 	{
 		Particles[i].setDrawLayer(Layer);
 	}
@@ -71,7 +79,10 @@ void ParticleEmitter::draw(sf::RenderTarget & target, sf::RenderStates states) c
 {
 	for (auto x : Particles)
 	{
-		target.draw(x);
+		if (x.IsHidden() == false)
+		{
+			target.draw(x);
+		}
 	}
 }
 

@@ -15,7 +15,7 @@ void UIContainer::Update(sf::RenderWindow& window)
 	{
 		x->Update(window);
 
-		if (sf::Joystick::isConnected(0) == true)
+		if (sf::Joystick::isConnected(0) == true)		//needs an event handler to work corectly
 		{	//test. need to add hover, and clicking A suport later
 			Container[selected]->setActive(true);
 

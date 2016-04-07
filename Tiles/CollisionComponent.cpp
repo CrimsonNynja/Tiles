@@ -16,11 +16,11 @@ void CollisionComponent::AddCollision(sf::Sprite* Owner)
 	Update();
 }
 
-bool CollisionComponent::TestMouseCollision(sf::RenderWindow& window)
+bool CollisionComponent::TestMouseCollision(sf::RenderWindow& window)		//is slightly wider then sprite
 {
-	if (sf::Mouse::getPosition(window).x > Origin.x && sf::Mouse::getPosition(window).y > Origin.y &&
-		sf::Mouse::getPosition(window).x < Origin.x + Origin.x + Owner->getGlobalBounds().width &&
-		sf::Mouse::getPosition(window).y < Origin.y + Origin.x + Owner->getGlobalBounds().height)
+	if (sf::Mouse::getPosition(window).x >= Origin.x && sf::Mouse::getPosition(window).y >= Origin.y &&
+		sf::Mouse::getPosition(window).x <= Origin.x + Owner->getGlobalBounds().width &&
+		sf::Mouse::getPosition(window).y <= Origin.y + Owner->getGlobalBounds().height)
 	{
 		return true;
 	}

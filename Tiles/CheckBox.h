@@ -8,9 +8,9 @@ public:
 	CheckBox();
 	CheckBox(bool* Variable);
 	bool IsChecked();
-	void Update();
+	void Update(sf::RenderWindow& window);
 
 private:
-	bool* State;
+	bool* state = nullptr;
 
 };

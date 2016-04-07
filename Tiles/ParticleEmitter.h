@@ -15,6 +15,7 @@ public:
 
 	void AddParticleImage(sf::Texture* tex);
 	void AddParticleImage(sf::Texture* tex, int width, int height);
+	void setHidden(bool bTrue);
 	void setParticleDrawLayer(int Layer);
 	sf::Texture* getParticleImage();
 

@@ -11,7 +11,7 @@ public:
 	bool TestMouseCollision(sf::RenderWindow& window);
 	void Update();
 
-private:
+//private:
 	sf::Sprite* Owner;
 
 	sf::Vector2f Centre;

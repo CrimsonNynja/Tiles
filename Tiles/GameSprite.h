@@ -10,15 +10,17 @@ public:
 	GameSprite();
 	void setDrawLayer(int Layer);
 	void setAnimation(sf::Texture* tex, int width, int height);
+	void setHidden(bool bTrue);
+	bool IsHidden() const;
 	Animation* getAnimationComponent();
 	CollisionComponent* getCollisionComponent();
 	int getLayer() const;
 	void Update();
 
 protected:
-	//std::vector<Animation> Anim{ 1 };
 	Animation Anim{ this };
 	CollisionComponent Collision{ this };
 
 	int drawLayer = 0;
+	bool bidden = false;
 };

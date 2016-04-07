@@ -22,6 +22,11 @@ void SelectableUI::setImages(sf::Texture * Inactive, sf::Texture * Hover, sf::Te
 	height = Height;
 }
 
+void SelectableUI::setAnimSpeed(float Speed)
+{
+	Anim.setAnimSpeed(Speed);
+}
+
 void SelectableUI::setSelected(bool bTrue)
 {
 	bSelected = bTrue;
@@ -30,6 +35,11 @@ void SelectableUI::setSelected(bool bTrue)
 void SelectableUI::setActive(bool bTrue)
 {
 	bActive = bTrue;
+}
+
+bool SelectableUI::IsActive() const
+{
+	return bActive;
 }
 
 bool SelectableUI::IsSelected() const

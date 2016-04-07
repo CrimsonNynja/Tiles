@@ -43,7 +43,7 @@ void Animation::LoadAnimation(sf::Texture* SpriteSheet, int FrameWidth, int Fram
 
 		for (int i = 0; i < (virtical * horizontal); i++)
 		{		
-			AnimFrames.push_back(sf::IntRect(X, Y, (frameWidth), (frameHeight)));		//not resizing for some reason
+			AnimFrames.push_back(sf::IntRect(X, Y, (frameWidth), (frameHeight)));
 
 			X = X + FrameWidth;
 			if (X >= SpriteSheet->getSize().x)

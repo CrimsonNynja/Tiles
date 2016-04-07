@@ -15,6 +15,16 @@ void GameSprite::setAnimation(sf::Texture* tex, int width, int height)
 	Anim.LoadAnimation(tex, width, height);
 }
 
+void GameSprite::setHidden(bool bTrue)
+{
+	bidden = bTrue;
+}
+
+bool GameSprite::IsHidden() const
+{
+	return bidden;
+}
+
 Animation* GameSprite::getAnimationComponent()
 {
 	return &Anim;
