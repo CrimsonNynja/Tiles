@@ -8,13 +8,13 @@ class Animation
 public:
 	Animation();
 	Animation(sf::Sprite* Owner);
-	Animation(sf::Sprite* Owner, sf::Texture* SpriteSheet, int FrameWidth, int FrameHeight);
+	Animation(sf::Sprite* Owner, sf::Texture* SpriteSheet, unsigned int FrameWidth, unsigned int FrameHeight);
 	void setOwner(sf::Sprite* Owner);
-	void LoadAnimation(sf::Texture* SpriteSHeet, int FrameWidth, int FrameHeight);
+	void LoadAnimation(sf::Texture* SpriteSHeet, unsigned int FrameWidth, unsigned int FrameHeight);
 	void Stop();
 	void Pause(bool bPaused);
 	void setAnimSpeed(float Speed);	//in milliseconds
-	void setFrame(int FrameNo);
+	void setFrame(unsigned int FrameNo);
 	bool IsPaused() const;
 	int getCurrentFrame() const;
 	void Update();
@@ -37,8 +37,8 @@ private:
 	sf::Time TimeElapsed;
 	float animSpeed = 200;
 
-	int currentFrame = 0;
-	int maxFrame = 0;
+	unsigned int currentFrame = 0;
+	unsigned int maxFrame = 0;
 	bool bIsLooping = true;
 	bool bPaused = false;
 	bool bIsForwards = true;

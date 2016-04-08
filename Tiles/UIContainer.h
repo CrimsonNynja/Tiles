@@ -12,5 +12,5 @@ public:
 
 private:
 	std::vector<SelectableUI*> Container;
-	int selected = 0;		//controller only
+	unsigned int selected = 0;		//controller only
 };

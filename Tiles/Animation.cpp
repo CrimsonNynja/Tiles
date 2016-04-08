@@ -10,7 +10,7 @@ Animation::Animation(sf::Sprite* Owner)
 	this->Owner = Owner;
 }
 
-Animation::Animation(sf::Sprite* Owner, sf::Texture* SpriteSheet, int FrameWidth, int FrameHeight)
+Animation::Animation(sf::Sprite* Owner, sf::Texture* SpriteSheet, unsigned int FrameWidth, unsigned int FrameHeight)
 {
 	this->Owner = Owner;
 	this->LoadAnimation(SpriteSheet, FrameWidth, FrameHeight);
@@ -21,7 +21,7 @@ void Animation::setOwner(sf::Sprite* Owner)
 	this->Owner = Owner;
 }
 
-void Animation::LoadAnimation(sf::Texture* SpriteSheet, int FrameWidth, int FrameHeight)
+void Animation::LoadAnimation(sf::Texture* SpriteSheet, unsigned int FrameWidth, unsigned int FrameHeight)
 {
 	if (SpriteSheet != Owner->getTexture())
 	{
@@ -29,8 +29,8 @@ void Animation::LoadAnimation(sf::Texture* SpriteSheet, int FrameWidth, int Fram
 		frameHeight = FrameHeight;
 		frameWidth = FrameWidth;
 
-		int virtical = SpriteSheet->getSize().x / frameWidth;
-		int horizontal = SpriteSheet->getSize().y / frameHeight;
+		unsigned int virtical = SpriteSheet->getSize().x / frameWidth;
+		unsigned int horizontal = SpriteSheet->getSize().y / frameHeight;
 
 		if (horizontal == 0)
 		{
@@ -38,10 +38,10 @@ void Animation::LoadAnimation(sf::Texture* SpriteSheet, int FrameWidth, int Fram
 		}
 		maxFrame = virtical * horizontal;
 
-		int X = 0;
-		int Y = 0;
+		unsigned int X = 0;
+		unsigned int Y = 0;
 
-		for (int i = 0; i < (virtical * horizontal); i++)
+		for (unsigned int i = 0; i < (virtical * horizontal); i++)
 		{		
 			AnimFrames.push_back(sf::IntRect(X, Y, (frameWidth), (frameHeight)));
 
@@ -73,7 +73,7 @@ void Animation::setAnimSpeed(float Speed)
 	animSpeed = Speed;
 }
 
-void Animation::setFrame(int FrameNo)
+void Animation::setFrame(unsigned int FrameNo)
 {
 	if (FrameNo < maxFrame - 1)
 	{

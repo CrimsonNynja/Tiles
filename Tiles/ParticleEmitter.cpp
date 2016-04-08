@@ -13,8 +13,8 @@ ParticleEmitter::ParticleEmitter(int maxParticles, int minParticles, float parti
 
 	Particles.resize(maxParticles);
 
-	srand(time(NULL));
-	for (int i = 0; i < Particles.size(); i ++)
+	srand(time(nullptr));
+	for (unsigned int i = 0; i < Particles.size(); i ++)
 	{
 		Particles[i].setPosition(x, y);
 		Particles[i].setRotation(static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / 360.0)));
@@ -31,7 +31,7 @@ void ParticleEmitter::AddParticleImage(sf::Texture* tex)
 
 void ParticleEmitter::AddParticleImage(sf::Texture* tex, int width, int height)
 {
-	for (int i = 0; i < Particles.size(); i ++)
+	for (unsigned int i = 0; i < Particles.size(); i ++)
 	{
 		Particles[i].setAnimation(tex, width, height);
 	}
@@ -90,7 +90,7 @@ void ParticleEmitter::Update()
 {
 	if (bStopped == false)
 	{
-		for (int i = 0; i < Particles.size(); i ++)
+		for (unsigned int i = 0; i < Particles.size(); i ++)
 		{
 			Particles[i].Update();
 			Particles[i].move(((static_cast<float> (rand()) / (static_cast<float> (RAND_MAX / speed)))) * std::cos(Particles[i].getRotation() * 3.14 / 2)
