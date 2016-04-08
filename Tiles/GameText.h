@@ -13,7 +13,7 @@ public:
 	void Throb(float Size, float Speed);
 	void Shrink(float Size, float Speed);
 	void Grow(float Size, float Speed);
-	void ChangeColour(sf::Color ColourToChengeTo);
+	void ChangeColour(sf::Color ColourToChangeTo, float speed);
 	void Stop();
 	void Update();
 
@@ -29,7 +29,12 @@ private:
 	float size = 1;
 	float speed = 1000;
 
+	bool bColorChangeComplete = false;
+
 	bool bActive = false;
 
 	float lastStaticSize = 1.0;	//may make function local
+
+	void RGBtoHSB(int r, int g, int b, float HSBValues[3]);
+	void HSBtoRGB(float hue, float saturation, float brightness, int RGB[3]);
 };
