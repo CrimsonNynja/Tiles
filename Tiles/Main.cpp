@@ -1,20 +1,27 @@
 #include <SFML/Graphics.hpp>
 
-#include "GameSprite.h"
-#include "Animation.h"
+#include "Button.h"
+#include "ParticleEmitter.h"
+#include "CheckBox.h"
+#include "INIReader.h"
+#include "Entity.h"
+#include "CollisionManager.h"
 
 int main()
 {
-
 	sf::Texture Test;
-	Test.loadFromFile("C:\\Users\\hudoc\\Desktop\\TestAnim.png");
-	GameSprite Test_Spr;
-//	sf::Sprite Test_Spr;
-	Test_Spr.setPosition(100, 100);
-	Animation TestAnim(&Test_Spr, &Test, 144, 224);
-	TestAnim.setAnimSpeed(200);
+	Test.loadFromFile(getValueFromFile("Directory", "Default.ini") + "ButtonTest.png");
 
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Tiles");
+	sf::Font Akashi;
+	Akashi.loadFromFile(getValueFromFile("Directory", "Default.ini") + "Akashi.ttf");
+
+	sf::RenderWindow window(sf::VideoMode(
+		stoi(getValueFromFile("FrameWidth", "Default.ini")), 
+		stoi(getValueFromFile("FrameHeight", "Default.ini"))), 
+		"Engine Test");
+	
+	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
+	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
 	while (window.isOpen())
 	{
@@ -27,10 +34,7 @@ int main()
 			}
 		}
 
-		TestAnim.Update();
-
 		window.clear(sf::Color::White);
-		window.draw(Test_Spr);
 		window.display();
 	}
 

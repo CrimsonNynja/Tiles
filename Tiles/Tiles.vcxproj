@@ -160,6 +160,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameText.cpp" />
+    <ClCompile Include="INIReader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="SelectableUI.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameText.h" />
     <ClInclude Include="ImageHandler.h" />
+    <ClInclude Include="INIReader.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SelectableUI.h" />
