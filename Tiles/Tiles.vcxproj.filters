@@ -1,119 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Tiles">
+      <UniqueIdentifier>{b0793620-5a9c-4a9e-937d-c8e7f7884807}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{9805b281-d6eb-4fe3-a6b0-dbdef313e916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="Engine\Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Engine\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Tiles\Header Files">
+      <UniqueIdentifier>{ff6dd0a0-d574-4544-abcf-201da2ea72c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tiles\Source Files">
+      <UniqueIdentifier>{307d9f5e-f959-4fbf-94e2-18e9180119d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameSprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SelectableUI.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameText.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UIContainer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CheckBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TilesMath.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="INIReader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTestMain.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureHandler.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageHandler.cpp">
+      <Filter>Tiles\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameSprite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIElement.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SelectableUI.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CheckBox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIContainer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameText.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEmitter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TilesMath.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="INIReader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHandler.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageHandler.h">
+      <Filter>Tiles\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Default.ini">
-      <Filter>Resource Files</Filter>
+      <Filter>Engine\Resource Files</Filter>
     </Text>
   </ItemGroup>
 </Project>

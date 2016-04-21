@@ -14,7 +14,7 @@ public:
 	bool IsHidden() const;
 	Animation* getAnimationComponent();
 	CollisionComponent* getCollisionComponent();
-	int getLayer() const;
+	int getDrawLayer() const;
 	void Update();
 
 protected:

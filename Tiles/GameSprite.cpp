@@ -35,7 +35,7 @@ CollisionComponent* GameSprite::getCollisionComponent()
 	return &Collision;
 }
 
-int GameSprite::getLayer() const
+int GameSprite::getDrawLayer() const
 {
 	return drawLayer;
 }

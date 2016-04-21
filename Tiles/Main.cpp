@@ -1,27 +1,26 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Button.h"
-#include "ParticleEmitter.h"
-#include "CheckBox.h"
+#include "TextureHandler.h"
+#include "ImageHandler.h"
 #include "INIReader.h"
-#include "Entity.h"
-#include "CollisionManager.h"
+
+#include "Menu.h"
+
+TextureHandler *TextureHandler::s_instance = 0;
+ImageHandler *ImageHandler::s_instance = 0;
 
 int main()
 {
-	sf::Texture Test;
-	Test.loadFromFile(getValueFromFile("Directory", "Default.ini") + "ButtonTest.png");
-
-	sf::Font Akashi;
-	Akashi.loadFromFile(getValueFromFile("Directory", "Default.ini") + "Akashi.ttf");
-
 	sf::RenderWindow window(sf::VideoMode(
-		stoi(getValueFromFile("FrameWidth", "Default.ini")), 
-		stoi(getValueFromFile("FrameHeight", "Default.ini"))), 
-		"Engine Test");
-	
+		stoi(getValueFromFile("FrameWidth", "Default.ini")),
+		stoi(getValueFromFile("FrameHeight", "Default.ini"))),
+		"Tiles v" + getValueFromFile("CurrentVersion", "Default.ini"));
+
 	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
+
+	Menu TilesMenu;
 
 	while (window.isOpen())
 	{
@@ -35,6 +34,7 @@ int main()
 		}
 
 		window.clear(sf::Color::White);
+		ImageHandler::instance()->Draw(window);	//not drawing text
 		window.display();
 	}
 
