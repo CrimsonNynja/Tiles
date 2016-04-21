@@ -163,6 +163,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="SelectableUI.cpp" />
+    <ClCompile Include="TilesMath.cpp" />
     <ClCompile Include="UIContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SelectableUI.h" />
+    <ClInclude Include="TilesMath.h" />
     <ClInclude Include="UIContainer.h" />
     <ClInclude Include="UIElement.h" />
   </ItemGroup>

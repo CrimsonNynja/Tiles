@@ -32,10 +32,15 @@ bool CollisionComponent::TestMouseCollision(sf::RenderWindow& window)
 
 void CollisionComponent::Update()
 {
-	Centre.x = Owner->getPosition().x + Owner->getGlobalBounds().width / 2;
-	Centre.y = Owner->getPosition().y + Owner->getGlobalBounds().height / 2;
-	Origin.x = Owner->getPosition().x;
-	Origin.y = Owner->getPosition().y;
-	BLCorner.x = Owner->getPosition().x + Owner->getGlobalBounds().width;
-	BLCorner.y = Owner->getPosition().y + Owner->getGlobalBounds().height;
+	//if ((int)Origin.x != (int)Owner->getPosition().x || (int)Origin.y != (int)Owner->getPosition().y)//not working for some reason, fix later
+	{
+//		bUpdateNeeded = true;
+
+		Centre.x = Owner->getPosition().x + Owner->getGlobalBounds().width / 2;
+		Centre.y = Owner->getPosition().y + Owner->getGlobalBounds().height / 2;
+		Origin.x = Owner->getPosition().x;
+		Origin.y = Owner->getPosition().y;
+		BLCorner.x = Owner->getPosition().x + Owner->getGlobalBounds().width;
+		BLCorner.y = Owner->getPosition().y + Owner->getGlobalBounds().height;
+	}
 }

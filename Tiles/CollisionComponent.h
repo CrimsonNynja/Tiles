@@ -13,10 +13,12 @@ public:
 
 //private:
 	sf::Sprite* Owner;
+	std::vector<CollisionComponent*> ObjectsInContactWith;
 
 	sf::Vector2f Centre;
 	sf::Vector2f Origin;
 	sf::Vector2f BLCorner;
 
 	bool bSolid = true;
+	bool bUpdateNeeded = true;
 };

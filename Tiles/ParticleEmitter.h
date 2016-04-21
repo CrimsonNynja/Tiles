@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "GameSprite.h"
+#include "TilesMath.h"
 
 //test
 #include <math.h>
@@ -26,12 +27,9 @@ public:
 	void Update();
 
 private:
-	float DistanceBetweenPoints(float x1, float y1, float x2, float y2);
-
 	std::vector<GameSprite> Particles;
 
-	float x = 0;
-	float y = 0;
+	sf::Vector2f Location{ 0, 0 };
 
 	int maxParticles;
 	int minParticles;

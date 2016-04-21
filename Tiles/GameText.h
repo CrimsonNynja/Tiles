@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <math.h>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -19,6 +20,8 @@ public:
 
 private:
 	void NFP(float a, float b) {};
+	void RGBtoHSB(int r, int g, int b, float HSBValues[3]);
+	void HSBtoRGB(float hue, float saturation, float brightness, int RGB[3]);
 
 	sf::Clock Timer;
 	sf::Time TimeElapsed;
@@ -34,7 +37,4 @@ private:
 	bool bActive = false;
 
 	float lastStaticSize = 1.0;	//may make function local
-
-	void RGBtoHSB(int r, int g, int b, float HSBValues[3]);
-	void HSBtoRGB(float hue, float saturation, float brightness, int RGB[3]);
 };
