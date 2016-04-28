@@ -10,11 +10,12 @@ void Button::AddInnerImage()
 
 }
 
-void Button::AddText(std::string Text, sf::Font* Font, sf::Color Colour, float LocalX, float LocalY)
+void Button::AddText(std::string Text, sf::Font* Font, sf::Color Colour, int FontSize, float LocalX, float LocalY)
 {
 	ButtonText.setString(Text);
 	ButtonText.setFont(*Font);
 	ButtonText.setColor(Colour);
+	ButtonText.setCharacterSize(FontSize);
 	ButtonText.setPosition(this->getPosition().x + LocalX, this->getPosition().y + LocalY);
 	ButtonTextPtr = &ButtonText;
 	localX = LocalX;

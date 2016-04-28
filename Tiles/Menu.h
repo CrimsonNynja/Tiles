@@ -11,20 +11,21 @@
 #include "UIContainer.h"
 
 //used to decide if operating on a computer of mobile device
-#define DEVICETYPE PC
+#define DEVICETYPE "MOBILE"
 
 class Menu
 {
 public:
 	Menu();
 
-	void Update();
-	void Exit();
+	void Update(sf::RenderWindow& window);
+	std::string getMenuState();
+	void Exit(sf::RenderWindow& window);
 
 private:
 	//on the main menu screen
 	void Play();
-	void MainMenu();
+	void MainMenu(sf::RenderWindow& window);
 	void Options();
 	void Shop();
 
@@ -33,5 +34,23 @@ private:
 	void PauseOptions();
 	void PauseToMain();
 
+	//general variables
+	enum MenuStates
+	{
+		MAIN,
+		OPTIONS,
+		SHOP,
+		PAUSE,
+		PLAY
+	};
+	MenuStates menuState = MAIN;
+
+	//general Menu items
 	sf::Text MenuTitle;
+
+	//main menu items
+	Button PlayBtn;
+	Button OptionBtn;
+	Button ShopBtn;
+	Button QuitBtn;
 };

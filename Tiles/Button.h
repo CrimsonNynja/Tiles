@@ -8,7 +8,7 @@ class Button : public SelectableUI
 public:
 	Button();
 	void AddInnerImage();
-	void AddText(std::string Text, sf::Font* Font, sf::Color Colour, float LocalX, float LocalY);
+	void AddText(std::string Text, sf::Font* Font, sf::Color Colour, int FontSize, float LocalX, float LocalY);
 	void AddText(GameText* GameText, float LocalX, float LocalY);
 	void CenterText();
 	GameText* getText() const;

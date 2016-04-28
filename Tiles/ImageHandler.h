@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <algorithm>
+#include <map>
 
 #include "GameSprite.h"
 
@@ -18,14 +19,14 @@ public:
 		return s_instance;
 	}
 
-	void AddToDrawList(GameSprite* obj);
-	void AddToDrawList(sf::Text* UI);
-	void Draw(sf::RenderWindow& window);
+	void AddToDrawList(std::string ListName, GameSprite* obj);
+	void AddToDrawList(std::string, sf::Text* UI);
+	void Draw(std::string ListName, sf::RenderWindow& window);
 
 private:
-	void Sort();
+	void Sort(std::string ListName);
 
-	std::vector<GameSprite*> Drawables;
-	std::vector<sf::Text*> UIDawables;
+	std::map<std::string, std::vector<GameSprite*>> Drawables;
+	std::map<std::string, std::vector<sf::Text*>> UIDawables;
 
 };

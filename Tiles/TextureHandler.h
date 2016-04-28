@@ -26,9 +26,9 @@ public:
 	void ReloadTextures();
 
 private:
-	std::map<std::string, std::map<std::string, sf::Texture*>> Textures;
+	std::map<std::string, std::map<std::string, sf::Texture>> Textures;
 	sf::Font Akashi;
 
-	std::string currentTexturePack = "NONE";
+	std::string currentTexturePack = "Default";
 
 };

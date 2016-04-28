@@ -1,39 +1,39 @@
 #include "ImageHandler.h"
 
-void ImageHandler::AddToDrawList(GameSprite * obj)
+void ImageHandler::AddToDrawList(std::string ListName, GameSprite* obj)
 {
-	Drawables.push_back(obj);
-	this->Sort();
+	Drawables[ListName].push_back(obj);
+	this->Sort(ListName);
 }
 
-void ImageHandler::AddToDrawList(sf::Text* UI)
+void ImageHandler::AddToDrawList(std::string ListName, sf::Text* UI)
 {
-	UIDawables.push_back(UI);
+	UIDawables[ListName].push_back(UI);
 }
 
-void ImageHandler::Draw(sf::RenderWindow & window)
+void ImageHandler::Draw(std::string ListName, sf::RenderWindow & window)
 {
-	for (unsigned int i = 0; i < Drawables.size(); i ++)
+	for (unsigned int i = 0; i < Drawables[ListName].size(); i ++)
 	{
-		window.draw(*Drawables[i]);
+		window.draw(*Drawables[ListName][i]);
 	}
-	for (unsigned int i = 0; i < UIDawables.size(); i ++)
+	for (unsigned int i = 0; i < UIDawables[ListName].size(); i ++)
 	{
-		window.draw(*UIDawables[i]);
+		window.draw(*UIDawables[ListName][i]);
 	}
 }
 
-void ImageHandler::Sort()
+void ImageHandler::Sort(std::string ListName)
 {
-	for (unsigned int i = 0; i < Drawables.size(); i ++)
+	for (unsigned int i = 0; i < Drawables[ListName].size(); i ++)
 	{
-		for (unsigned int j = 0; j < Drawables.size(); j++)
+		for (unsigned int j = 0; j < Drawables[ListName].size(); j++)
 		{
 			if (i != j)
 			{
-				if (Drawables[i]->getDrawLayer() > Drawables[j]->getDrawLayer())
+				if (Drawables[ListName][i]->getDrawLayer() > Drawables[ListName][j]->getDrawLayer())
 				{
-					std::iter_swap(Drawables.begin() + i, Drawables.begin() + j);
+					std::iter_swap(Drawables[ListName].begin() + i, Drawables[ListName].begin() + j);
 				}
 			}
 		}

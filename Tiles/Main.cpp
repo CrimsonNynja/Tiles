@@ -20,6 +20,7 @@ int main()
 	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
+	TextureHandler::instance()->setTexturePack("Default");
 	Menu TilesMenu;
 
 	while (window.isOpen())
@@ -33,8 +34,15 @@ int main()
 			}
 		}
 
+		//Updates
+		TilesMenu.Update(window);
+
+
+		//draws
 		window.clear(sf::Color::White);
-		ImageHandler::instance()->Draw(window);	//not drawing text
+		ImageHandler::instance()->Draw("UI", window);
+		ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
+
 		window.display();
 	}
 
