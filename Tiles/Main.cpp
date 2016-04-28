@@ -6,6 +6,7 @@
 #include "INIReader.h"
 
 #include "Menu.h"
+#include "Board.h"
 
 TextureHandler *TextureHandler::s_instance = 0;
 ImageHandler *ImageHandler::s_instance = 0;
@@ -22,6 +23,9 @@ int main()
 
 	TextureHandler::instance()->setTexturePack("Default");
 	Menu TilesMenu;
+
+	Board TilesBoard;
+	TilesBoard.CreateBoard();
 
 	while (window.isOpen())
 	{
@@ -40,9 +44,14 @@ int main()
 
 		//draws
 		window.clear(sf::Color::White);
-		ImageHandler::instance()->Draw("UI", window);
-		ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
-
+		if (TilesMenu.getMenuState() == "UI-Play")
+		{
+			ImageHandler::instance()->Draw("Game", window);
+		}
+		else
+		{
+			ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
+		}
 		window.display();
 	}
 

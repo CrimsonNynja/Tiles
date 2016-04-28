@@ -20,6 +20,7 @@ public:
 
 	void Update(sf::RenderWindow& window);
 	std::string getMenuState();
+	bool IsPaused();
 	void Exit(sf::RenderWindow& window);
 
 private:
@@ -49,6 +50,7 @@ private:
 	sf::Text MenuTitle;
 
 	//main menu items
+	UIContainer MainContainer;
 	Button PlayBtn;
 	Button OptionBtn;
 	Button ShopBtn;

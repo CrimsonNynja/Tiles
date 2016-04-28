@@ -81,6 +81,15 @@
     <ClCompile Include="ImageHandler.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Profile.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -138,6 +147,18 @@
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImageHandler.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Profile.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesPlayer.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

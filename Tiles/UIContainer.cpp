@@ -4,16 +4,16 @@ UIContainer::UIContainer()
 {
 }
 
-void UIContainer::AddElement(SelectableUI * Element)
+void UIContainer::AddElement(SelectableUI* Element)
 {
 	Container.push_back(Element);
 }
 
 void UIContainer::Update(sf::RenderWindow& window)
 {
-	for (auto x: Container)
+	//for (auto x: Container)
 	{
-		x->Update(window);
+	//	x->Update(window);	//does it need this?
 
 		if (sf::Joystick::isConnected(0) == true)		//needs an event handler to work corectly
 		{	//test. need to add hover, and clicking A suport later
