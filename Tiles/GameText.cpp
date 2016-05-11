@@ -109,6 +109,7 @@ void GameText::Stop()
 {
 	FunctPointer = &GameText::NFP;
 	bActive = false;
+	bShrink = false;
 }
 
 void GameText::Update() 

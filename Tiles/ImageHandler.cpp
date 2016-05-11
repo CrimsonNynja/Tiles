@@ -3,7 +3,7 @@
 void ImageHandler::AddToDrawList(std::string ListName, GameSprite* obj)
 {
 	Drawables[ListName].push_back(obj);
-	this->Sort(ListName);
+	//this->Sort(ListName);
 }
 
 void ImageHandler::AddToDrawList(std::string ListName, sf::Text* UI)

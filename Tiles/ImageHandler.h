@@ -22,10 +22,10 @@ public:
 	void AddToDrawList(std::string ListName, GameSprite* obj);
 	void AddToDrawList(std::string, sf::Text* UI);
 	void Draw(std::string ListName, sf::RenderWindow& window);
+	void Sort(std::string ListName);		//slow if used on every add, so need to use it only after adding most items
+
 
 private:
-	void Sort(std::string ListName);
-
 	std::map<std::string, std::vector<GameSprite*>> Drawables;
 	std::map<std::string, std::vector<sf::Text*>> UIDawables;
 

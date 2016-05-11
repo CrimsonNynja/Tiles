@@ -38,6 +38,12 @@ void TextureHandler::ReloadTextures()
 	Textures[currentTexturePack]["p-MenuCardH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "PCButtonH.png");
 	Textures[currentTexturePack]["p-MenuCardA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "PCButtonA.png");
 
+	Textures[currentTexturePack]["CheckBoxIA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "InactiveT.png");
+	Textures[currentTexturePack]["CheckBoxH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "HoverT.png");
+	Textures[currentTexturePack]["CheckBoxA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "ActiveT.png");
+
 	Textures[currentTexturePack]["Tile"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Tile_Temp.png");
+
+	Textures[currentTexturePack]["Player"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "TestPlayer.png");
 
 }

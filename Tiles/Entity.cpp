@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity() : GameSprite() {
+Entity::Entity() : GameSprite() 
+{
 
 }
 
@@ -47,5 +48,10 @@ void Entity::setHealth(float amount)
 float Entity::getHealth() const 
 {
 	return health;
+}
+
+void Entity::Update()
+{
+	__super::Update();
 }
 

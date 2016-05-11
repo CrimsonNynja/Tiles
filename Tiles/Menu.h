@@ -4,6 +4,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
+#include "GameText.h"
 #include "TextureHandler.h"
 #include "ImageHandler.h"
 #include "Button.h"
@@ -27,8 +28,8 @@ private:
 	//on the main menu screen
 	void Play();
 	void MainMenu(sf::RenderWindow& window);
-	void Options();
-	void Shop();
+	void Options(sf::RenderWindow& window);
+	void Shop(sf::RenderWindow& window);
 
 	//for the pause menu overlay
 	void Pause();
@@ -55,4 +56,8 @@ private:
 	Button OptionBtn;
 	Button ShopBtn;
 	Button QuitBtn;
+
+	//options Items
+	CheckBox VSyncBox;
+	GameText VSyncText;
 };

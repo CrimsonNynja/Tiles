@@ -81,13 +81,19 @@
     <ClCompile Include="ImageHandler.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Profile.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Engine\Source Files</Filter>
+    <ClCompile Include="TilesPlayer.cpp">
+      <Filter>Tiles\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Profile.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,6 +165,12 @@
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

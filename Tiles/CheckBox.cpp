@@ -18,12 +18,15 @@ void CheckBox::Update(sf::RenderWindow& window)		//need an event handler, so tha
 {
 	__super::Update(window);
 
-	if (bActive == true)
+	if (state != nullptr)
 	{
-		*state = true;
-	}
-	else
-	{
-		*state = false;
+		if (bActive == true)
+		{
+			*state = true;
+		}
+		else
+		{
+			*state = false;
+		}
 	}
 }

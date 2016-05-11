@@ -14,6 +14,7 @@ public:
 
 	void setHealth(float amount);
 	float getHealth() const;
+	void Update();
 
 protected:
 	bool bIsDead = false;

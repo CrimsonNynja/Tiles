@@ -8,7 +8,9 @@ Menu::Menu()
 	MenuTitle.setColor(sf::Color::Black);
 	MenuTitle.setPosition((std::stoi(getValueFromFile("FrameWidth", "Default.ini")) / 2) - 100.f, 50);
 	MenuTitle.setString("Tiles");
-	ImageHandler::instance()->AddToDrawList("UI", &MenuTitle);
+	ImageHandler::instance()->AddToDrawList("UI-Menu", &MenuTitle);
+	ImageHandler::instance()->AddToDrawList("UI-Shop", &MenuTitle);
+	ImageHandler::instance()->AddToDrawList("UI-Options", &MenuTitle);
 
 	if (DEVICETYPE == "PC")
 	{
@@ -100,6 +102,19 @@ Menu::Menu()
 		ImageHandler::instance()->AddToDrawList("UI-Menu", &QuitBtn);
 		ImageHandler::instance()->AddToDrawList("UI-Menu", QuitBtn.getText());
 	}
+
+	//GLOBALS / ITEMS THAT DONT HAVE AN ALTERNATE IMAGE YET
+	VSyncBox.setImages(TextureHandler::instance()->getTexture("CheckBoxIA"),  
+		TextureHandler::instance()->getTexture("CheckBoxH"),
+		TextureHandler::instance()->getTexture("CheckBoxA"), 100, 100);
+	VSyncBox.setPosition(100, 100);
+	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncBox);
+
+	VSyncText.setString("V-Sync");
+	VSyncText.setFont(*TextureHandler::instance()->getFont());
+	VSyncText.setPosition(98, 210);
+	VSyncText.setColor(sf::Color::Black);
+	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncText);
 }
 
 void Menu::Update(sf::RenderWindow& window)
@@ -110,10 +125,10 @@ void Menu::Update(sf::RenderWindow& window)
 		this->MainMenu(window);
 		break;
 	case OPTIONS:
-		this->Options();
+		this->Options(window);
 		break;
 	case SHOP:
-		this->Shop();
+		this->Shop(window);
 		break;
 //	case PAUSE:
 //		this->Pause();
@@ -207,14 +222,19 @@ void Menu::MainMenu(sf::RenderWindow& window)
 	}
 }
 
-void Menu::Options()
+void Menu::Options(sf::RenderWindow& window)
 {
 	MenuTitle.setString("Options");
 
+	VSyncBox.Update(window);
+	if (VSyncBox.IsChecked() == true)
+	{
+		//change value in file
+
+	}
 }
 
-void Menu::Shop()
+void Menu::Shop(sf::RenderWindow& window)
 {
 	MenuTitle.setString("Shop");
-
 }

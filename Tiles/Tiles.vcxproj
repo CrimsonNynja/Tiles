@@ -161,6 +161,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameText.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="ImageHandler.cpp" />
     <ClCompile Include="INIReader.cpp" />
     <ClCompile Include="EngineTestMain.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="TextureHandler.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TilesMath.cpp" />
+    <ClCompile Include="TilesPlayer.cpp" />
     <ClCompile Include="UIContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,8 +185,10 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameMode.h" />
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameText.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="ImageHandler.h" />
     <ClInclude Include="INIReader.h" />
     <ClInclude Include="Menu.h" />

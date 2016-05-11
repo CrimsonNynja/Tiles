@@ -7,6 +7,7 @@
 
 #include "Menu.h"
 #include "Board.h"
+#include "TilesPlayer.h"
 
 TextureHandler *TextureHandler::s_instance = 0;
 ImageHandler *ImageHandler::s_instance = 0;
@@ -27,6 +28,9 @@ int main()
 	Board TilesBoard;
 	TilesBoard.CreateBoard();
 
+	TilesPlayer Player;
+	Player.setPosition(80, 15);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -40,7 +44,7 @@ int main()
 
 		//Updates
 		TilesMenu.Update(window);
-
+		Player.Update();
 
 		//draws
 		window.clear(sf::Color::White);
