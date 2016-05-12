@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
-class Animation
+class Animation			//error up if no animation is given but still used
 {
 public:
 	Animation();

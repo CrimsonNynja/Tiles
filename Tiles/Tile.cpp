@@ -3,5 +3,5 @@
 Tile::Tile()
 {
 	this->setTexture(*TextureHandler::instance()->getTexture("Tile"));
-	this->setDrawLayer(4);
+	this->drawLayer = 4;;
 }

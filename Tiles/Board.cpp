@@ -3,6 +3,15 @@
 void Board::CreateBoard()
 {
 	this->Reset();
+
+	Pickups.resize(12);
+	for (unsigned int i = 0; i < Pickups.size(); i ++)
+	{
+		CollisionMngr.AddComponent(Pickups[i].getCollisionComponent());
+		SpawnPickup(3, i);
+	}
+
+	ImageHandler::instance()->Sort("Game");
 }
 
 void Board::DeleteBoard()
@@ -31,16 +40,40 @@ void Board::Reset()
 		x = 80;
 		y += Tiles[i][1].getGlobalBounds().height;
 	}
-
-	ImageHandler::instance()->Sort("Game");
 }
 
-void Board::PlacePlayer(TilesPlayer * Player, int TileX, int TileY)
+void Board::PlacePlayer(TilesPlayer* Player, int row, int collumn)
 {
+	CollisionMngr.AddComponent(Player->getCollisionComponent());
+
+	Player->setPosition(Tiles[row][collumn].getPosition().x, Tiles[row][collumn].getPosition().y - 124);
+
+	//TODO random spawns if -1
+}
+
+void Board::SpawnPickup(int row, int collumn)		//all pickups being added to the list, but only the last one comes back detected
+{
+	float x = Tiles[row][collumn].getPosition().x;
+	float y = Tiles[row][collumn].getPosition().y;
+
+	for (unsigned int i = 0; i < Pickups.size(); i ++)
+	{
+		if (Pickups[i].getPosition().x == 0 && Pickups[i].getPosition().y == 0)
+		{
+			Pickups[i].setPosition(x, y);
+			break;
+		}
+	}	
 }
 
 void Board::Update()
 {
+	//collision testing goes here
+	for (unsigned int i = 0; i < Pickups.size(); i ++)
+	{
+		Pickups[i].Update();
+	}
+	CollisionMngr.TestCollisions();
 }
 
 void Board::MoveRow(int row)

@@ -43,6 +43,7 @@ void TextureHandler::ReloadTextures()
 	Textures[currentTexturePack]["CheckBoxA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "ActiveT.png");
 
 	Textures[currentTexturePack]["Tile"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Tile_Temp.png");
+	Textures[currentTexturePack]["Pickup"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Pickup.png");
 
 	Textures[currentTexturePack]["Player"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "TestPlayer.png");
 

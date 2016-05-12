@@ -1,6 +1,6 @@
 #include "CollisionManager.h"
 
-void CollisionManager::AddComponent(CollisionComponent * Component)
+void CollisionManager::AddComponent(CollisionComponent* Component)
 {
 	CollisionObjects.push_back(Component);
 }
@@ -9,14 +9,14 @@ void CollisionManager::TestCollisions()
 {
 	for (unsigned int i = 0; i < CollisionObjects.size(); i ++)
 	{
+		CollisionObjects[i]->ObjectsInContactWith.clear();
+
 		for (unsigned int j = 0; j < CollisionObjects.size(); j ++)
 		{
 			if (i != j)
 			{
 				//if (CollisionObjects[i]->bUpdateNeeded == true), not working at the moment fix later
 				{
-					CollisionObjects[i]->ObjectsInContactWith.clear();
-
 					if (TestCollision(CollisionObjects[i], CollisionObjects[j]) == true)
 					{
 						CollisionObjects[i]->ObjectsInContactWith.push_back(CollisionObjects[j]);

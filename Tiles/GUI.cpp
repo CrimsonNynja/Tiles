@@ -12,7 +12,7 @@ GUI::GUI()
 void GUI::AddScore(int ammount)
 {
 	Score.setString("Score: " + std::to_string(ammount));
-	Score.Throb(0.3, 10);
+	Score.Throb(0.2, 10);
 
 }
 

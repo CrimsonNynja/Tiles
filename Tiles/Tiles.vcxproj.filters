@@ -75,9 +75,6 @@
     <ClCompile Include="TextureHandler.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ImageHandler.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
@@ -93,8 +90,14 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GUI.cpp">
-      <Filter>Engine\Source Files</Filter>
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Tiles\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +174,9 @@
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
