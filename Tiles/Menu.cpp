@@ -107,14 +107,24 @@ Menu::Menu()
 	VSyncBox.setImages(TextureHandler::instance()->getTexture("CheckBoxIA"),  
 		TextureHandler::instance()->getTexture("CheckBoxH"),
 		TextureHandler::instance()->getTexture("CheckBoxA"), 100, 100);
-	VSyncBox.setPosition(100, 100);
+	VSyncBox.setPosition(100, 300);
 	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncBox);
 
 	VSyncText.setString("V-Sync");
 	VSyncText.setFont(*TextureHandler::instance()->getFont());
-	VSyncText.setPosition(98, 210);
+	VSyncText.setPosition(98, 410);
 	VSyncText.setColor(sf::Color::Black);
 	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncText);
+
+	BackBtn.setImages(TextureHandler::instance()->getTexture("BackButton"),
+		TextureHandler::instance()->getTexture("BackButtonH"),
+		TextureHandler::instance()->getTexture("BackButton"), 400, 150);
+	BackBtn.setPosition(100, 100);
+	BackBtn.AddText("Back", TextureHandler::instance()->getFont(), sf::Color::White, 34, 100, 100);
+	BackBtn.CenterText();
+	ImageHandler::instance()->AddToDrawList("UI-Options", &BackBtn);		//should add to the other sub menues later
+	ImageHandler::instance()->AddToDrawList("UI-Options", BackBtn.getText());		//should add to the other sub menues later
+
 }
 
 void Menu::Update(sf::RenderWindow& window)
@@ -227,10 +237,17 @@ void Menu::Options(sf::RenderWindow& window)
 	MenuTitle.setString("Options");
 
 	VSyncBox.Update(window);
+	BackBtn.Update(window);
+	BackBtn.CenterText();
+
 	if (VSyncBox.IsChecked() == true)
 	{
 		//change value in file
+	}
 
+	if (BackBtn.IsActive() == true)
+	{
+		menuState = MAIN;
 	}
 }
 

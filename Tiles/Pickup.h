@@ -8,8 +8,9 @@ class Pickup : public GameSprite
 {
 public:
 	Pickup();
+	int getscoreAmmount() const;
 	void Update();
 
 protected:
-
+	int scoreAmmount = 1;
 };

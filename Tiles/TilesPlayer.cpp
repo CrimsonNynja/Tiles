@@ -7,6 +7,7 @@ TilesPlayer::TilesPlayer()
 	this->drawLayer = 2;
 	ImageHandler::instance()->AddToDrawList("Game", this);
 
+	getCollisionComponent()->AddCollisionMask(sf::Vector2f(0, 100), sf::Vector2f(144, 124));	//stuffs up the collision somewhere, dont know where
 }
 
 void TilesPlayer::LoadFromProfile(Profile* profile)
@@ -76,11 +77,13 @@ bool TilesPlayer::IsMoving()
 	return true;
 }
 
-void TilesPlayer::Update()
+void TilesPlayer::Update()	//note the player dies upon startng the match, then work as intended
 {
 	__super::Update();
 	gui.Update();
 	
+	bool bOnBoard = false;
+
 	if (getCollisionComponent()->ObjectsInContactWith.size() > 0)
 	{
 		for (auto x: getCollisionComponent()->ObjectsInContactWith)
@@ -89,9 +92,18 @@ void TilesPlayer::Update()
 			{
 				score += 1;
 				gui.AddScore(score);
-				dynamic_cast<Pickup*>(x->Owner)->setPosition(0, 0);
+				x->Owner->setPosition(-200, -200);
+			}
+			if (dynamic_cast<Tile*>(x->Owner))
+			{
+				bOnBoard = true;
 			}
 		}
+	}
+
+	if (bOnBoard == false)
+	{
+		std::cout << "YOU DIED!!!!!!!!!!!!" << std::endl;
 	}
 	
 	//move code

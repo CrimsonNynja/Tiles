@@ -28,9 +28,9 @@ int main()
 	TextureHandler::instance()->setTexturePack("Default");
 	Menu TilesMenu;
 
-	TilesPlayer Player;
 	Board TilesBoard;
 	TilesBoard.CreateBoard();
+	TilesPlayer Player;
 	TilesBoard.PlacePlayer(&Player, 0, 0);
 
 	while (window.isOpen())
@@ -60,13 +60,18 @@ int main()
 				{
 					Player.Move("right");
 				}
+
+				if (event.key.code == sf::Keyboard::Escape)
+				{
+					//pause the game, bring up the pause menu
+				}
 			}
 		}
 
 		//Updates
 		TilesMenu.Update(window);
-		Player.Update();
 		TilesBoard.Update();
+		Player.Update();
 
 		//draws
 		window.clear(sf::Color::White);
@@ -78,6 +83,11 @@ int main()
 		{
 			ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
 		}
+//		TilesBoard.CollisionMngr.DrawCollision(window, Player.getCollisionComponent(), sf::Color(0, 255, 0, 50));
+//		for (auto x: TilesBoard.Pickups)
+//		{
+//			TilesBoard.CollisionMngr.DrawCollision(window, x.getCollisionComponent(), sf::Color(0, 0, 255, 50));
+//		}
 		window.display();
 	}
 

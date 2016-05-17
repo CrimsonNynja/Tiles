@@ -49,6 +49,7 @@ private:
 
 	//general Menu items
 	sf::Text MenuTitle;
+	Button BackBtn;
 
 	//main menu items
 	UIContainer MainContainer;

@@ -6,6 +6,7 @@
 #include "Entity.h" 
 #include "GUI.h"
 #include "Pickup.h"
+#include "Tile.h"
 
 class TilesPlayer : public Entity
 {

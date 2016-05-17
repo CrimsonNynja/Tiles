@@ -25,6 +25,9 @@
     <Filter Include="Tiles\Source Files">
       <UniqueIdentifier>{307d9f5e-f959-4fbf-94e2-18e9180119d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tiles\Resource Files">
+      <UniqueIdentifier>{cfe20d4c-05ed-4d9f-a1ba-bcf26cc6e4bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -184,5 +187,10 @@
     <Text Include="Default.ini">
       <Filter>Engine\Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data.ini">
+      <Filter>Tiles\Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

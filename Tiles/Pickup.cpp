@@ -7,6 +7,11 @@ Pickup::Pickup()
 	ImageHandler::instance()->AddToDrawList("Game", this);
 }
 
+int Pickup::getscoreAmmount() const
+{
+	return scoreAmmount;
+}
+
 void Pickup::Update()
 {
 	__super::Update();

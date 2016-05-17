@@ -208,6 +208,9 @@
   <ItemGroup>
     <Text Include="Default.ini" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data.ini" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -47,4 +47,7 @@ void TextureHandler::ReloadTextures()
 
 	Textures[currentTexturePack]["Player"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "TestPlayer.png");
 
+	Textures[currentTexturePack]["BackButton"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButton.png");
+	Textures[currentTexturePack]["BackButtonH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButtonHover.png");
+
 }

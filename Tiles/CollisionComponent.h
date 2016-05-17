@@ -9,6 +9,7 @@ public:
 	CollisionComponent();
 	CollisionComponent(sf::Sprite* Owner);
 	void AddCollision(sf::Sprite* Owner);
+	void AddCollisionMask(sf::Vector2f origin, sf::Vector2f WidthHeight);
 	bool TestMouseCollision(sf::RenderWindow& window);
 	void Update();
 
@@ -20,6 +21,10 @@ public:
 	sf::Vector2f Origin;
 	sf::Vector2f BLCorner;
 
+	sf::Vector2f MOrigin;
+	sf::Vector2f MBLCorner;
+
 	bool bSolid = true;
 	bool bUpdateNeeded = true;
+	bool bHasMask = false;
 };
