@@ -1,5 +1,21 @@
 #include "Board.h"
 
+Board::~Board()
+{
+	for (auto x : Pickups)
+	{
+		delete x;
+	}
+	for (unsigned i = 0; i < Tiles.size(); i ++)
+	{
+		for (unsigned j = 0; j < Tiles[i].size(); j ++)
+		{
+			delete Tiles[i][j];
+		}
+	}
+	Tiles.clear();
+}
+
 void Board::CreateBoard()
 {
 	Timer.restart();	//should do after starting game, also needs to pause with the game later
@@ -7,10 +23,14 @@ void Board::CreateBoard()
 
 	this->Reset();
 
-	Pickups.resize(12);
+	for (unsigned i = 0; i < 12; i ++)
+	{
+		Pickups.push_back(new Pickup());
+	}
+
 	for (unsigned int i = 0; i < Pickups.size(); i ++)
 	{
-		CollisionMngr.AddComponent(Pickups[i].getCollisionComponent());
+		CollisionMngr.AddComponent(Pickups[i]->getCollisionComponent());
 		SpawnPickup(rand() % 7, rand() % 12);
 	}
 
@@ -27,7 +47,10 @@ void Board::Reset()
 	Tiles.resize(7);
 	for (int i = 0; i < Tiles.size(); i++)
 	{
-		Tiles[i].resize(12);
+		for (unsigned j = 0; j < 12; j ++)
+		{
+			Tiles[i].push_back(new Tile());
+		}
 	}
 
 	float x = 80, y = 124;
@@ -36,13 +59,13 @@ void Board::Reset()
 	{
 		for (unsigned int j = 0; j < Tiles[i].size(); j++)
 		{
-			Tiles[i][j].setPosition(x, y);
-			x += Tiles[i][j].getGlobalBounds().width;
-			ImageHandler::instance()->AddToDrawList("Game", &Tiles[i][j]);
-			CollisionMngr.AddComponent(Tiles[i][j].getCollisionComponent());
+			Tiles[i][j]->setPosition(x, y);
+			x += Tiles[i][j]->getGlobalBounds().width;
+			ImageHandler::instance()->AddToDrawList("Game", Tiles[i][j]);
+			CollisionMngr.AddComponent(Tiles[i][j]->getCollisionComponent());
 		}
 		x = 80;
-		y += Tiles[i][1].getGlobalBounds().height;
+		y += Tiles[i][1]->getGlobalBounds().height;
 	}
 }
 
@@ -50,21 +73,21 @@ void Board::PlacePlayer(TilesPlayer* Player, int row, int collumn)
 {
 	CollisionMngr.AddComponent(Player->getCollisionComponent());
 
-	Player->setPosition(Tiles[row][collumn].getPosition().x, Tiles[row][collumn].getPosition().y - 100);
+	Player->setPosition(Tiles[row][collumn]->getPosition().x, Tiles[row][collumn]->getPosition().y - 100);
 
 	//TODO random spawns if -1
 }
 
 void Board::SpawnPickup(int row, int collumn)		//all pickups being added to the list, but only the last one comes back detected
 {
-	float x = Tiles[row][collumn].getPosition().x;
-	float y = Tiles[row][collumn].getPosition().y;
+	float x = Tiles[row][collumn]->getPosition().x;
+	float y = Tiles[row][collumn]->getPosition().y;
 
 	for (unsigned int i = 0; i < Pickups.size(); i++)
 	{
-		if (Pickups[i].getPosition().x == -200 && Pickups[i].getPosition().y == -200)
+		if (Pickups[i]->getPosition().x == -200 && Pickups[i]->getPosition().y == -200)
 		{
-			Pickups[i].setPosition(x, y);
+			Pickups[i]->setPosition(x, y);
 			break;
 		}
 	}
@@ -77,13 +100,13 @@ void Board::Update()
 
 	for (unsigned int i = 0; i < Pickups.size(); i ++)
 	{
-		Pickups[i].Update();
+		Pickups[i]->Update();
 	}
 	for (unsigned int i = 0; i < Tiles.size(); i ++)
 	{
 		for (unsigned int j = 0; j < Tiles[i].size(); j ++)
 		{
-			Tiles[i][j].Update();
+			Tiles[i][j]->Update();
 		}
 	}
 	CollisionMngr.TestCollisions();
@@ -96,20 +119,20 @@ void Board::Update()
 		{
 			if (bMovePositivly == true)
 			{
-				Tiles[Placement][i].setPosition(Tiles[Placement][i].getPosition().x + 8, Tiles[Placement][i].getPosition().y);
-				if (Tiles[Placement][i].getPosition().x - Tiles[Placement][i].getLastPosition().x > 144)
+				Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getPosition().x + 8, Tiles[Placement][i]->getPosition().y);
+				if (Tiles[Placement][i]->getPosition().x - Tiles[Placement][i]->getLastPosition().x > 144)
 				{
-					Tiles[Placement][i].setPosition(Tiles[Placement][i].getLastPosition().x + 144, Tiles[Placement][i].getPosition().y);
+					Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getLastPosition().x + 144, Tiles[Placement][i]->getPosition().y);
 					BoardDirection = IDLE;
 
 				}
 			}
 			else
 			{
-				Tiles[Placement][i].setPosition(Tiles[Placement][i].getPosition().x - 8, Tiles[Placement][i].getPosition().y);
-				if (Tiles[Placement][i].getLastPosition().x - Tiles[Placement][i].getPosition().x > 144)
+				Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getPosition().x - 8, Tiles[Placement][i]->getPosition().y);
+				if (Tiles[Placement][i]->getLastPosition().x - Tiles[Placement][i]->getPosition().x > 144)
 				{
-					Tiles[Placement][i].setPosition(Tiles[Placement][i].getLastPosition().x - 144, Tiles[Placement][i].getPosition().y);
+					Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getLastPosition().x - 144, Tiles[Placement][i]->getPosition().y);
 					BoardDirection = IDLE;
 				}
 			}
@@ -121,19 +144,19 @@ void Board::Update()
 		{
 			if (bMovePositivly == true)
 			{
-				Tiles[i][Placement].setPosition(Tiles[i][Placement].getPosition().x, Tiles[i][Placement].getPosition().y + 8);
-				if (Tiles[i][Placement].getPosition().y - Tiles[i][Placement].getLastPosition().y > 124)
+				Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getPosition().y + 8);
+				if (Tiles[i][Placement]->getPosition().y - Tiles[i][Placement]->getLastPosition().y > 124)
 				{
-					Tiles[i][Placement].setPosition(Tiles[i][Placement].getPosition().x, Tiles[i][Placement].getLastPosition().y + 124);
+					Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getLastPosition().y + 124);
 					BoardDirection = IDLE;
 				}
 			}
 			else
 			{
-				Tiles[i][Placement].setPosition(Tiles[i][Placement].getPosition().x, Tiles[i][Placement].getPosition().y - 8);
-				if (Tiles[i][Placement].getLastPosition().y - Tiles[i][Placement].getPosition().y > 124)
+				Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getPosition().y - 8);
+				if (Tiles[i][Placement]->getLastPosition().y - Tiles[i][Placement]->getPosition().y > 124)
 				{
-					Tiles[i][Placement].setPosition(Tiles[i][Placement].getPosition().x, Tiles[i][Placement].getLastPosition().y - 124);
+					Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getLastPosition().y - 124);
 					BoardDirection = IDLE;
 				}
 			}
@@ -145,7 +168,7 @@ void Board::Update()
 		{
 			for (unsigned int j = 0; j < Tiles[i].size(); j++)
 			{
-				Tiles[i][j].setLastPosition();
+				Tiles[i][j]->setLastPosition();
 			}
 		}
 	}
@@ -175,7 +198,6 @@ void Board::GameLoop()
 		{
 			RowCollumn = rand() % 10;
 			RowColNum = rand() % 7;		//allow it to use the full rang of collumn later
-			std::cout << RowCollumn << ", " << RowColNum << std::endl;
 			bActivateEvent = false;
 			evnetTime = TimeElapsed.asSeconds();
 		}

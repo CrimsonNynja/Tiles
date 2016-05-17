@@ -13,6 +13,7 @@
 class Board
 {
 public:
+	~Board();
 	void CreateBoard();
 	void DeleteBoard();
 	void Reset();
@@ -46,6 +47,6 @@ public:
 	bool RowCollumn = 0;
 	int RowColNum;
 
-	std::vector<std::vector<Tile>> Tiles;	//12 x 7
-	std::vector<Pickup> Pickups;
+	std::vector<std::vector<Tile*>> Tiles;	//12 x 7
+	std::vector<Pickup*> Pickups;
 };

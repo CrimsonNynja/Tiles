@@ -90,7 +90,7 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 		{
 			if (dynamic_cast<Pickup*>(x->Owner))
 			{
-				score += 1;
+				score += dynamic_cast<Pickup*>(x->Owner)->getscoreAmmount();;
 				gui.AddScore(score);
 				x->Owner->setPosition(-200, -200);
 			}
