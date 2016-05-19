@@ -13,7 +13,8 @@ public:
 	void setActive(bool bTrue);
 	bool IsActive() const;
 	bool IsSelected() const;
-	void Update(sf::RenderWindow& window);	//Overload
+	void EventUpdate(sf::RenderWindow& window, sf::Event& bevent);
+	void Update(sf::RenderWindow& window);	//to be used without event handling
 
 protected:
 	std::vector<sf::Texture*> AnimTex;

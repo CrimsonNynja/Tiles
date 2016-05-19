@@ -12,7 +12,7 @@ TilesPlayer::TilesPlayer()
 
 void TilesPlayer::LoadFromProfile(Profile* profile)
 {
-
+	PlayerProfile = profile;
 }
 
 void TilesPlayer::SaveToProfile(Profile* profile)
@@ -77,7 +77,7 @@ bool TilesPlayer::IsMoving()
 	return true;
 }
 
-void TilesPlayer::Update()	//note the player dies upon startng the match, then work as intended
+void TilesPlayer::Update()	//note the player dies upon startng the match, then works as intended
 {
 	__super::Update();
 	gui.Update();
@@ -90,9 +90,19 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 		{
 			if (dynamic_cast<Pickup*>(x->Owner))
 			{
-				score += dynamic_cast<Pickup*>(x->Owner)->getscoreAmmount();;
-				gui.AddScore(score);
+				Pickup* Dummy = dynamic_cast<Pickup*>(x->Owner);
+				if (Dummy->getType() != "Coin")
+				{
+					score += Dummy->getscoreAmmount();
+					gui.AddScore(score);
+				}
+				else
+				{
+					currency += Dummy->getscoreAmmount();
+					gui.AddCurrency(Dummy->getscoreAmmount(), Dummy->getPosition());
+				}
 				x->Owner->setPosition(-200, -200);
+				dynamic_cast<Pickup*>(x->Owner)->Reset();
 			}
 			if (dynamic_cast<Tile*>(x->Owner))
 			{
@@ -101,66 +111,81 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 		}
 	}
 
-	if (bOnBoard == false)
+	if (bOnBoard == false)	//may use health later
 	{
-		std::cout << "YOU DIED!!!!!!!!!!!!" << std::endl;
+		setHealth(0);
+		this->Die();
 	}
 	
-	//move code
-	if (Direction == RIGHT)
+	if (bIsDead == false)
 	{
-		this->setPosition(getPosition().x + 8, getPosition().y);
-		if ((this->getPosition().x - LastPosition.x) >= 144)
+		//move code
+		if (Direction == RIGHT)
 		{
-			this->setPosition(LastPosition.x + 144, this->getPosition().y);
-			Direction = IDLE;
+			this->setPosition(getPosition().x + 8, getPosition().y);
+			if ((this->getPosition().x - LastPosition.x) >= 144)
+			{
+				this->setPosition(LastPosition.x + 144, this->getPosition().y);
+				Direction = IDLE;
 
-//			Direction = NextDirection;
-//			NextDirection = IDLE;
+				//			Direction = NextDirection;
+				//			NextDirection = IDLE;
+			}
 		}
-	}
-	if (Direction == LEFT)
-	{
-		this->setPosition(getPosition().x - 8, getPosition().y);
-		if ((LastPosition.x - this->getPosition().x) >= 144)
+		if (Direction == LEFT)
 		{
-			this->setPosition(LastPosition.x - 144, this->getPosition().y);
-			Direction = IDLE;
+			this->setPosition(getPosition().x - 8, getPosition().y);
+			if ((LastPosition.x - this->getPosition().x) >= 144)
+			{
+				this->setPosition(LastPosition.x - 144, this->getPosition().y);
+				Direction = IDLE;
 
-//			Direction = NextDirection;
-//			NextDirection = IDLE;
+				//			Direction = NextDirection;
+				//			NextDirection = IDLE;
 
+			}
 		}
-	}
-	else if (Direction == UP)
-	{
-		this->setPosition(getPosition().x, getPosition().y - 8);
-		if ((LastPosition.y - this->getPosition().y) >= 124)
+		else if (Direction == UP)
 		{
-			this->setPosition(this->getPosition().x, LastPosition.y - 124);
-			Direction = IDLE;
-//			Direction = NextDirection;
-//			NextDirection = IDLE;
+			this->setPosition(getPosition().x, getPosition().y - 8);
+			if ((LastPosition.y - this->getPosition().y) >= 124)
+			{
+				this->setPosition(this->getPosition().x, LastPosition.y - 124);
+				Direction = IDLE;
+				//			Direction = NextDirection;
+				//			NextDirection = IDLE;
 
+			}
 		}
-	}
-	else if (Direction == DOWN)
-	{
-		this->setPosition(getPosition().x, getPosition().y + 8);
-		if ((this->getPosition().y - LastPosition.y) >= 124)
+		else if (Direction == DOWN)
 		{
-			this->setPosition(this->getPosition().x, LastPosition.y + 124);
-			Direction = IDLE;
+			this->setPosition(getPosition().x, getPosition().y + 8);
+			if ((this->getPosition().y - LastPosition.y) >= 124)
+			{
+				this->setPosition(this->getPosition().x, LastPosition.y + 124);
+				Direction = IDLE;
 
-//			Direction = NextDirection;
-//			NextDirection = IDLE;
+				//			Direction = NextDirection;
+				//			NextDirection = IDLE;
 
+			}
 		}
-	}
-	else if (Direction == IDLE)
-	{
-		LastPosition = this->getPosition();
+		else if (Direction == IDLE)
+		{
+			LastPosition = this->getPosition();
+		}
 	}
 
 //	std::cout << Direction << "< " << NextDirection << std::endl;
+}
+
+void TilesPlayer::Die()
+{
+	//may add a special animation later
+	//for now we will just shrink the player into oblivion
+	if (this->getScale().x > 0)
+	{
+		this->setScale(this->getScale().x - 0.05, this->getScale().y - 0.05);
+	}
+	//game over screen access goes here
 }

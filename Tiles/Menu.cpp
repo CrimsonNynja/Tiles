@@ -127,24 +127,24 @@ Menu::Menu()
 
 }
 
-void Menu::Update(sf::RenderWindow& window)
+void Menu::Update(sf::RenderWindow& window, sf::Event& bevent)
 {
 	switch (menuState)
 	{
 	case MAIN:
-		this->MainMenu(window);
+		this->MainMenu(window, bevent);
 		break;
 	case OPTIONS:
-		this->Options(window);
+		this->Options(window, bevent);
 		break;
 	case SHOP:
-		this->Shop(window);
+		this->Shop(window, bevent);
 		break;
-//	case PAUSE:
-//		this->Pause();
-//		break;
+	case PAUSE:
+		this->Pause(window, bevent);
+		break;
 	case PLAY:
-		this->Play();
+		this->Play(bevent);
 		break;
 	}
 }
@@ -191,15 +191,20 @@ void Menu::Exit(sf::RenderWindow& window)
 	window.close();
 }
 
-void Menu::Play()
+void Menu::Play(sf::Event& bevent)
 {
+	if (bevent.type == sf::Event::KeyPressed && bevent.key.code == sf::Keyboard::Escape)
+	{
+		menuState = PAUSE;
+	}
 	//test is the pause button has been pressed, and if so, go to the pause menu
 }
 
-void Menu::MainMenu(sf::RenderWindow& window)
+void Menu::MainMenu(sf::RenderWindow& window, sf::Event& bevent)
 {
 	MenuTitle.setString("Tiles");
 	
+	this->ResetButtons();
 	//updates
 //	if (DEVICETYPE == "PC")
 	{
@@ -207,10 +212,14 @@ void Menu::MainMenu(sf::RenderWindow& window)
 	}
 //	else
 	{
-		PlayBtn.Update(window);
-		OptionBtn.Update(window);
-		ShopBtn.Update(window);
-		QuitBtn.Update(window);
+		PlayBtn.EventUpdate(window, bevent);
+		OptionBtn.EventUpdate(window, bevent);
+		ShopBtn.EventUpdate(window, bevent);
+		QuitBtn.EventUpdate(window, bevent);
+//		PlayBtn.Update(window);
+//		OptionBtn.Update(window);
+//		ShopBtn.Update(window);
+//		QuitBtn.Update(window);
 	}
 
 	//tests
@@ -232,13 +241,13 @@ void Menu::MainMenu(sf::RenderWindow& window)
 	}
 }
 
-void Menu::Options(sf::RenderWindow& window)
+void Menu::Options(sf::RenderWindow& window, sf::Event& bevent)
 {
 	MenuTitle.setString("Options");
 
 	VSyncBox.Update(window);
-	BackBtn.Update(window);
-	BackBtn.CenterText();
+	BackBtn.EventUpdate(window, bevent);
+//	BackBtn.CenterText();
 
 	if (VSyncBox.IsChecked() == true)
 	{
@@ -251,7 +260,22 @@ void Menu::Options(sf::RenderWindow& window)
 	}
 }
 
-void Menu::Shop(sf::RenderWindow& window)
+void Menu::Shop(sf::RenderWindow& window, sf::Event& bevent)
 {
 	MenuTitle.setString("Shop");
+}
+
+void Menu::Pause(sf::RenderWindow& window, sf::Event& bevent)
+{
+	std::cout << "The game pauses here" << std::endl;
+}
+
+void Menu::ResetButtons()
+{
+	BackBtn.setActive(false);
+	PlayBtn.setActive(false);
+	OptionBtn.setActive(false);
+	ShopBtn.setActive(false);
+	QuitBtn.setActive(false);
+	VSyncBox.setActive(false);
 }

@@ -41,6 +41,13 @@ GameText* Button::getText() const
 	return ButtonTextPtr;
 }
 
+void Button::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
+{
+	__super::EventUpdate(window, bevent);
+	ButtonTextPtr->Update();
+	ButtonTextPtr->setPosition(this->getPosition().x + localX, this->getPosition().y + localY);
+}
+
 void Button::Update(sf::RenderWindow& window)
 {
 	__super::Update(window);

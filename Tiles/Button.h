@@ -12,6 +12,7 @@ public:
 	void AddText(GameText* GameText, float LocalX, float LocalY);
 	void CenterText();
 	GameText* getText() const;
+	void EventUpdate(sf::RenderWindow& window, sf::Event& bevent);
 	void Update(sf::RenderWindow& window);
 
 private:

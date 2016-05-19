@@ -10,6 +10,7 @@
 #include "Menu.h"
 #include "Board.h"
 #include "TilesPlayer.h"
+#include "Profile.h"
 
 TextureHandler *TextureHandler::s_instance = 0;
 ImageHandler *ImageHandler::s_instance = 0;
@@ -26,11 +27,14 @@ int main()
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
 	TextureHandler::instance()->setTexturePack("Default");
-	Menu TilesMenu;
+	Menu TilesMenu;		//only sets itsself after moving the mouse once, due to the events
 
 	Board TilesBoard;
-	TilesBoard.CreateBoard();
 	TilesPlayer Player;
+	Profile PlayerProfile;
+
+	TilesBoard.CreateBoard();
+
 	TilesBoard.PlacePlayer(&Player, 0, 0);
 
 	while (window.isOpen())
@@ -61,33 +65,35 @@ int main()
 					Player.Move("right");
 				}
 
-				if (event.key.code == sf::Keyboard::Escape)
-				{
-					//pause the game, bring up the pause menu
-				}
+//				if (event.key.code == sf::Keyboard::Escape)
+//				{
+//					//pause the game, bring up the pause menu
+//				}
 			}
-		}
 
-		//Updates
-		TilesMenu.Update(window);
-		TilesBoard.Update();
-		Player.Update();
+			//Updates
+			TilesMenu.Update(window, event);		//only updates the menu when a mouse or key does something
+		}
+		if (TilesMenu.getMenuState() == "UI-Play")
+		{
+			TilesBoard.Update();
+			Player.Update();
+		}
 
 		//draws
 		window.clear(sf::Color::White);
-		if (TilesMenu.getMenuState() == "UI-Play")
+		if (TilesMenu.getMenuState() == "UI-Play" || TilesMenu.getMenuState() == "UI-Pause")
 		{
 			ImageHandler::instance()->Draw("Game", window);
+			if (TilesMenu.getMenuState() == "UI-Pause")
+			{
+				ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
+			}
 		}
 		else
 		{
 			ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
 		}
-//		TilesBoard.CollisionMngr.DrawCollision(window, Player.getCollisionComponent(), sf::Color(0, 255, 0, 50));
-//		for (auto x: TilesBoard.Pickups)
-//		{
-//			TilesBoard.CollisionMngr.DrawCollision(window, x.getCollisionComponent(), sf::Color(0, 0, 255, 50));
-//		}
 		window.display();
 	}
 

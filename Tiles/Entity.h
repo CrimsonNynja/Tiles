@@ -19,6 +19,6 @@ public:
 protected:
 	bool bIsDead = false;
 
-	float health;
-	float maxHealth;
+	float health = 100;
+	float maxHealth = 100;
 };

@@ -2,6 +2,8 @@
 
 Board::~Board()
 {
+	srand(time(0));
+
 	for (auto x : Pickups)
 	{
 		delete x;
@@ -19,8 +21,6 @@ Board::~Board()
 void Board::CreateBoard()
 {
 	Timer.restart();	//should do after starting game, also needs to pause with the game later
-	srand(time(0));
-
 	this->Reset();
 
 	for (unsigned i = 0; i < 12; i ++)
@@ -197,7 +197,7 @@ void Board::GameLoop()
 		if (TimeElapsed.asSeconds() > 1 && TimeElapsed.asSeconds() < 2)		//set all randoms vars for a time cycle
 		{
 			RowCollumn = rand() % 10;
-			RowColNum = rand() % 7;		//allow it to use the full rang of collumn later
+			RowColNum = rand() % 7;		//allow it to use the full range of collumn later
 			bActivateEvent = false;
 			evnetTime = TimeElapsed.asSeconds();
 		}

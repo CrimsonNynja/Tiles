@@ -20,7 +20,10 @@ public:
 	void Update();
 
 private:
+	void Die();
+
 	GUI gui;
+	Profile* PlayerProfile;
 
 	enum direction
 	{
@@ -33,5 +36,5 @@ private:
 	sf::Vector2f LastPosition;
 
 	int score = 0;
-
+	int currency = 0;
 };

@@ -14,27 +14,30 @@
 //used to decide if operating on a computer of mobile device
 #define DEVICETYPE "MOBILE"
 
-class Menu
+class Menu		//still need to find a place to put the high score at
 {
 public:
 	Menu();
 
-	void Update(sf::RenderWindow& window);
+	void Update(sf::RenderWindow& window, sf::Event& bevent);
 	std::string getMenuState();
 	bool IsPaused();
 	void Exit(sf::RenderWindow& window);
 
 private:
 	//on the main menu screen
-	void Play();
-	void MainMenu(sf::RenderWindow& window);
-	void Options(sf::RenderWindow& window);
-	void Shop(sf::RenderWindow& window);
+	void Play(sf::Event& bevent);
+	void MainMenu(sf::RenderWindow& window, sf::Event& bevent);
+	void Options(sf::RenderWindow& window, sf::Event& bevent);
+	void Shop(sf::RenderWindow& window, sf::Event& bevent);
 
 	//for the pause menu overlay
-	void Pause();
+	void Pause(sf::RenderWindow& window, sf::Event& bevent);
 	void PauseOptions();
 	void PauseToMain();
+
+	//general
+	void ResetButtons();
 
 	//general variables
 	enum MenuStates
@@ -44,8 +47,8 @@ private:
 		SHOP,
 		PAUSE,
 		PLAY
-	};
-	MenuStates menuState = MAIN;
+	}menuState = MAIN;
+	//MenuStates menuState = MAIN;
 
 	//general Menu items
 	sf::Text MenuTitle;
@@ -61,4 +64,7 @@ private:
 	//options Items
 	CheckBox VSyncBox;
 	GameText VSyncText;
+
+	//menu variables
+
 };

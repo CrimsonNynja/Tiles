@@ -50,4 +50,10 @@ void TextureHandler::ReloadTextures()
 	Textures[currentTexturePack]["BackButton"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButton.png");
 	Textures[currentTexturePack]["BackButtonH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButtonHover.png");
 
+//	for (auto x: Textures[currentTexturePack])
+//	{
+//		
+//		//x.setSmooth(StringToBool(getValueFromFile("Antialiasing", "Default.ini")));
+//	}
+//	Textures[currentTexturePack][""].setSmooth(StringToBool(getValueFromFile("Antialiasing", "Default.ini")));
 }

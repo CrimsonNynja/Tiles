@@ -47,6 +47,52 @@ bool SelectableUI::IsSelected() const
 	return bSelected;
 }
 
+void SelectableUI::EventUpdate(sf::RenderWindow& window, sf::Event& bevent)
+{
+	__super::Update();
+
+	if (Collision.TestMouseCollision(window) == true && bActive == false)
+	{
+		bHover = true;
+		bSelected = true;
+	}
+	else
+	{
+		bHover = false;
+		bSelected = false;
+	}
+
+	if (bSelected == false && bActive == false)
+	{
+		int frame = Anim.getCurrentFrame();
+		Anim.LoadAnimation(AnimTex[0], width, height);
+		Anim.setFrame(frame);
+	}
+	else
+	{
+		if (bHover == true)
+		{
+			int frame = Anim.getCurrentFrame();
+			Anim.LoadAnimation(AnimTex[1], width, height);
+			Anim.setFrame(frame);
+
+			if (bevent.type == sf::Event::MouseButtonReleased)
+			{
+				if (Collision.TestMouseCollision(window) == true && (bevent.mouseButton.button == sf::Mouse::Left))
+				{
+					bActive = true;
+				}
+			}
+		}
+	}
+	if (bActive == true)
+	{
+		int frame = Anim.getCurrentFrame();
+		Anim.LoadAnimation(AnimTex[2], width, height);
+		Anim.setFrame(frame);
+	}
+}
+
 void SelectableUI::Update(sf::RenderWindow& window)
 {
 	__super::Update();
