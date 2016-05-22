@@ -49,7 +49,7 @@ bool SelectableUI::IsSelected() const
 
 void SelectableUI::EventUpdate(sf::RenderWindow& window, sf::Event& bevent)
 {
-	__super::Update();
+	//do event handling and collision here
 
 	if (Collision.TestMouseCollision(window) == true && bActive == false)
 	{
@@ -62,52 +62,20 @@ void SelectableUI::EventUpdate(sf::RenderWindow& window, sf::Event& bevent)
 		bSelected = false;
 	}
 
-	if (bSelected == false && bActive == false)
+	if (bSelected == true && bActive == false && bHover == true && bevent.type == sf::Event::MouseButtonReleased)
 	{
-		int frame = Anim.getCurrentFrame();
-		Anim.LoadAnimation(AnimTex[0], width, height);
-		Anim.setFrame(frame);
-	}
-	else
-	{
-		if (bHover == true)
+		if (Collision.TestMouseCollision(window) == true && (bevent.mouseButton.button == sf::Mouse::Left))
 		{
-			int frame = Anim.getCurrentFrame();
-			Anim.LoadAnimation(AnimTex[1], width, height);
-			Anim.setFrame(frame);
-
-			if (bevent.type == sf::Event::MouseButtonReleased)
-			{
-				if (Collision.TestMouseCollision(window) == true && (bevent.mouseButton.button == sf::Mouse::Left))
-				{
-					bActive = true;
-				}
-			}
+			bActive = true;
 		}
-	}
-	if (bActive == true)
-	{
-		int frame = Anim.getCurrentFrame();
-		Anim.LoadAnimation(AnimTex[2], width, height);
-		Anim.setFrame(frame);
 	}
 }
 
-void SelectableUI::Update(sf::RenderWindow& window)
+void SelectableUI::Update()
 {
 	__super::Update();
 
-	if (Collision.TestMouseCollision(window) == true && bActive == false)
-	{
-		bHover = true;
-		bSelected = true;
-	}
-	else
-	{
-		bHover = false;
-		bSelected = false;
-	}
-
+	//do anim setting here
 	if (bSelected == false && bActive == false)
 	{
 		int frame = Anim.getCurrentFrame();
@@ -121,11 +89,6 @@ void SelectableUI::Update(sf::RenderWindow& window)
 			int frame = Anim.getCurrentFrame();
 			Anim.LoadAnimation(AnimTex[1], width, height);
 			Anim.setFrame(frame);
-
-			if (Collision.TestMouseCollision(window) == true && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
-			{
-				bActive = true;
-			}
 		}
 	}
 	if (bActive == true)

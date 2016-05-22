@@ -19,20 +19,21 @@ class Menu		//still need to find a place to put the high score at
 public:
 	Menu();
 
-	void Update(sf::RenderWindow& window, sf::Event& bevent);
+	void EventUpdate(sf::RenderWindow& window, sf::Event& bevent);
+	void Update();
 	std::string getMenuState();
 	bool IsPaused();
 	void Exit(sf::RenderWindow& window);
 
 private:
 	//on the main menu screen
-	void Play(sf::Event& bevent);
-	void MainMenu(sf::RenderWindow& window, sf::Event& bevent);
-	void Options(sf::RenderWindow& window, sf::Event& bevent);
-	void Shop(sf::RenderWindow& window, sf::Event& bevent);
+	void Play();
+	void MainMenu();
+	void Options();
+	void Shop();
 
 	//for the pause menu overlay
-	void Pause(sf::RenderWindow& window, sf::Event& bevent);
+	void Pause();
 	void PauseOptions();
 	void PauseToMain();
 

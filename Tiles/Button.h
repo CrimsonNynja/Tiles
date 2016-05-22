@@ -13,7 +13,7 @@ public:
 	void CenterText();
 	GameText* getText() const;
 	void EventUpdate(sf::RenderWindow& window, sf::Event& bevent);
-	void Update(sf::RenderWindow& window);
+	void Update();
 
 private:
 	GameText ButtonText;

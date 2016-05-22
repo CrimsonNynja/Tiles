@@ -14,7 +14,7 @@ public:
 	bool IsActive() const;
 	bool IsSelected() const;
 	void EventUpdate(sf::RenderWindow& window, sf::Event& bevent);
-	void Update(sf::RenderWindow& window);	//to be used without event handling
+	void Update();	//to be used without event handling
 
 protected:
 	std::vector<sf::Texture*> AnimTex;

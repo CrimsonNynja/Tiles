@@ -109,6 +109,8 @@ Menu::Menu()
 		TextureHandler::instance()->getTexture("CheckBoxA"), 100, 100);
 	VSyncBox.setPosition(100, 300);
 	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncBox);
+	VSyncBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));	//not working
+	std::cout << VSyncBox.IsChecked();
 
 	VSyncText.setString("V-Sync");
 	VSyncText.setFont(*TextureHandler::instance()->getFont());
@@ -124,27 +126,56 @@ Menu::Menu()
 	BackBtn.CenterText();
 	ImageHandler::instance()->AddToDrawList("UI-Options", &BackBtn);		//should add to the other sub menues later
 	ImageHandler::instance()->AddToDrawList("UI-Options", BackBtn.getText());		//should add to the other sub menues later
+	ImageHandler::instance()->AddToDrawList("UI-Shop", &BackBtn);
+	ImageHandler::instance()->AddToDrawList("UI-Shop", BackBtn.getText());		//should add to the other sub menues later
 
 }
 
-void Menu::Update(sf::RenderWindow& window, sf::Event& bevent)
+void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 {
 	switch (menuState)
 	{
 	case MAIN:
-		this->MainMenu(window, bevent);
+		PlayBtn.EventUpdate(window, bevent);
+		OptionBtn.EventUpdate(window, bevent);
+		ShopBtn.EventUpdate(window, bevent);
+		QuitBtn.EventUpdate(window, bevent);
 		break;
 	case OPTIONS:
-		this->Options(window, bevent);
+		VSyncBox.EventUpdate(window, bevent);
+		BackBtn.EventUpdate(window, bevent);
 		break;
 	case SHOP:
-		this->Shop(window, bevent);
+		BackBtn.EventUpdate(window, bevent);
 		break;
 	case PAUSE:
-		this->Pause(window, bevent);
-		break;
+
 	case PLAY:
-		this->Play(bevent);
+		if (bevent.type == sf::Event::KeyPressed && bevent.key.code == sf::Keyboard::Escape)
+		{
+			menuState = PAUSE;
+		}
+		break;
+	}
+}
+
+void Menu::Update()
+{
+	switch (menuState)
+	{
+	case MAIN:
+		this->MainMenu();
+		break;
+	case OPTIONS:
+		this->Options();
+		break;
+	case SHOP:
+		this->Shop();
+		break;
+	case PAUSE:
+		this->Pause();
+	//case PLAY:
+	//	this->Play();
 		break;
 	}
 }
@@ -168,9 +199,6 @@ std::string Menu::getMenuState()
 	case PLAY:
 		return "UI-Play";
 		break;
-//	default:
-//		return "UI-Main";
-//		break;
 	}
 }
 
@@ -191,39 +219,30 @@ void Menu::Exit(sf::RenderWindow& window)
 	window.close();
 }
 
-void Menu::Play(sf::Event& bevent)
+void Menu::Play()
 {
-	if (bevent.type == sf::Event::KeyPressed && bevent.key.code == sf::Keyboard::Escape)
-	{
-		menuState = PAUSE;
-	}
-	//test is the pause button has been pressed, and if so, go to the pause menu
+	//think this is now redundant
 }
 
-void Menu::MainMenu(sf::RenderWindow& window, sf::Event& bevent)
+void Menu::MainMenu()
 {
 	MenuTitle.setString("Tiles");
 	
-	this->ResetButtons();
 	//updates
 //	if (DEVICETYPE == "PC")
 	{
-		MainContainer.Update(window);	//this stops the text from centering as it probably need to push a cast
+//		MainContainer.Update(window);	//this stops the text from centering as it probably need to push a cast
 	}
 //	else
 	{
-		PlayBtn.EventUpdate(window, bevent);
-		OptionBtn.EventUpdate(window, bevent);
-		ShopBtn.EventUpdate(window, bevent);
-		QuitBtn.EventUpdate(window, bevent);
-//		PlayBtn.Update(window);
-//		OptionBtn.Update(window);
-//		ShopBtn.Update(window);
-//		QuitBtn.Update(window);
+		PlayBtn.Update();
+		OptionBtn.Update();
+		ShopBtn.Update();
+		QuitBtn.Update();
 	}
 
 	//tests
-	if (PlayBtn.IsActive() == true)
+	if (PlayBtn.IsActive() == true)		//gives a vector subscript error now, WHY?
 	{
 		menuState = PLAY;
 	}
@@ -235,19 +254,19 @@ void Menu::MainMenu(sf::RenderWindow& window, sf::Event& bevent)
 	{
 		menuState = SHOP;
 	}
-	else if (QuitBtn.IsActive() == true)
+	else if (QuitBtn.IsActive() == true)		//add back in later
 	{
-		this->Exit(window);
+//		this->Exit(window);
 	}
+	this->ResetButtons();	//potentially move this so it activate whenever menus are changed, however it is still a lot faster here
 }
 
-void Menu::Options(sf::RenderWindow& window, sf::Event& bevent)
+void Menu::Options()
 {
 	MenuTitle.setString("Options");
 
-	VSyncBox.Update(window);
-	BackBtn.EventUpdate(window, bevent);
-//	BackBtn.CenterText();
+	VSyncBox.Update();
+	BackBtn.Update();
 
 	if (VSyncBox.IsChecked() == true)
 	{
@@ -260,12 +279,19 @@ void Menu::Options(sf::RenderWindow& window, sf::Event& bevent)
 	}
 }
 
-void Menu::Shop(sf::RenderWindow& window, sf::Event& bevent)
+void Menu::Shop()
 {
 	MenuTitle.setString("Shop");
+
+	BackBtn.Update();
+
+	if (BackBtn.IsActive() == true)
+	{
+		menuState = MAIN;
+	}
 }
 
-void Menu::Pause(sf::RenderWindow& window, sf::Event& bevent)
+void Menu::Pause()
 {
 	std::cout << "The game pauses here" << std::endl;
 }
@@ -277,5 +303,5 @@ void Menu::ResetButtons()
 	OptionBtn.setActive(false);
 	ShopBtn.setActive(false);
 	QuitBtn.setActive(false);
-	VSyncBox.setActive(false);
+	//VSyncBox.setActive(false);
 }

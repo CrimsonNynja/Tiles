@@ -27,14 +27,13 @@ int main()
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
 	TextureHandler::instance()->setTexturePack("Default");
-	Menu TilesMenu;		//only sets itsself after moving the mouse once, due to the events
+	Menu TilesMenu;
 
 	Board TilesBoard;
 	TilesPlayer Player;
 	Profile PlayerProfile;
 
-	TilesBoard.CreateBoard();
-
+	TilesBoard.CreateBoard();					//moving this gives a vector subscript error, find put 
 	TilesBoard.PlacePlayer(&Player, 0, 0);
 
 	while (window.isOpen())
@@ -46,7 +45,7 @@ int main()
 			{
 				window.close();
 			}
-			if (event.type == sf::Event::KeyPressed)//&& Player..IsMoving() == false	//half works
+			if (event.type == sf::Event::KeyPressed)//&& Player.IsMoving() == false	//half works
 			{
 				if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
 				{
@@ -64,20 +63,22 @@ int main()
 				{
 					Player.Move("right");
 				}
-
-//				if (event.key.code == sf::Keyboard::Escape)
-//				{
-//					//pause the game, bring up the pause menu
-//				}
 			}
 
-			//Updates
-			TilesMenu.Update(window, event);		//only updates the menu when a mouse or key does something
+			TilesMenu.EventUpdate(window, event);
 		}
+
+		TilesMenu.Update();
 		if (TilesMenu.getMenuState() == "UI-Play")
 		{
 			TilesBoard.Update();
 			Player.Update();
+		}
+
+		if (TilesMenu.getMenuState() == "UI-Main")		//optomise this later
+		{
+		//	TilesBoard.CreateBoard();
+		//	TilesBoard.PlacePlayer(&Player, 0, 0);
 		}
 
 		//draws
