@@ -23,8 +23,8 @@ void GUI::AddCurrency(int ammount, sf::Vector2f position)
 {
 	CurrencyLastPosition = position;
 	Currency.setPosition(position);
-	Score.setString("+ " + std::to_string(ammount) + " Coin");
-	Score.Throb(0.2, 10);
+	Currency.setString("+ " + std::to_string(ammount) + " Coin");
+	Currency.Throb(0.2, 20);
 	bMoveCurrencyText = true;
 }
 
