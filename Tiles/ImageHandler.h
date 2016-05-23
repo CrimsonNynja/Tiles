@@ -6,6 +6,8 @@
 
 #include "GameSprite.h"
 
+#define ImgHandler ImageHandler::instance()
+
 class ImageHandler
 {
 public:

@@ -49,6 +49,9 @@ void Button::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 void Button::Update()
 {
 	__super::Update();
-	ButtonTextPtr->Update();
-	ButtonTextPtr->setPosition(this->getPosition().x + localX, this->getPosition().y + localY);
+	if (ButtonTextPtr != nullptr)
+	{
+		ButtonTextPtr->Update();
+		ButtonTextPtr->setPosition(this->getPosition().x + localX, this->getPosition().y + localY);
+	}
 }

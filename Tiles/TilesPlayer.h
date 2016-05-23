@@ -35,6 +35,8 @@ private:
 	} Direction, NextDirection;
 	sf::Vector2f LastPosition;
 
+	sf::Clock Timer;
+	sf::Time TimeElapsed;
 	int score = 0;
 	int currency = 0;
 };

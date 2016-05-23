@@ -50,6 +50,10 @@ void TextureHandler::ReloadTextures()
 	Textures[currentTexturePack]["BackButton"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButton.png");
 	Textures[currentTexturePack]["BackButtonH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "BackButtonHover.png");
 
+	Textures[currentTexturePack]["PauseCard"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "PauseCard.png");
+	Textures[currentTexturePack]["PauseButtonIA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Inactive.png");
+	Textures[currentTexturePack]["PauseButtonH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Hover.png");
+
 //	for (auto x: Textures[currentTexturePack])
 //	{
 //		

@@ -26,7 +26,7 @@ int main()
 	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
-	TextureHandler::instance()->setTexturePack("Default");
+	TexHandler->setTexturePack("Default");
 	Menu TilesMenu;
 
 	Board TilesBoard;
@@ -75,9 +75,9 @@ int main()
 			Player.Update();
 		}
 
-		if (TilesMenu.getMenuState() == "UI-Main")		//optomise this later
+		if (TilesMenu.getMenuState() == "UI-Menu")		//optomise this later
 		{
-		//	TilesBoard.CreateBoard();
+		//	TilesBoard.Reset();
 		//	TilesBoard.PlacePlayer(&Player, 0, 0);
 		}
 
@@ -85,15 +85,15 @@ int main()
 		window.clear(sf::Color::White);
 		if (TilesMenu.getMenuState() == "UI-Play" || TilesMenu.getMenuState() == "UI-Pause")
 		{
-			ImageHandler::instance()->Draw("Game", window);
+			ImgHandler->Draw("Game", window);
 			if (TilesMenu.getMenuState() == "UI-Pause")
 			{
-				ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
+				ImgHandler->Draw(TilesMenu.getMenuState(), window);
 			}
 		}
 		else
 		{
-			ImageHandler::instance()->Draw(TilesMenu.getMenuState(), window);
+			ImgHandler->Draw(TilesMenu.getMenuState(), window);
 		}
 		window.display();
 	}

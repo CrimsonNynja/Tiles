@@ -11,6 +11,7 @@ public:
 	GUI();
 	void AddScore(int ammount);
 	void AddCurrency(int ammount, sf::Vector2f position);		//need a position to place this, as it will come out of the gem
+	void setTimer(int Time);
 	void Update();
 
 private:

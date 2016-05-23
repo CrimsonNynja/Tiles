@@ -6,6 +6,8 @@
 #include "SFML/Graphics.hpp"
 #include "INIReader.h"
 
+#define TexHandler TextureHandler::instance()
+
 class TextureHandler
 {
 public:

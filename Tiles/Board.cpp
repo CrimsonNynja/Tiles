@@ -88,6 +88,14 @@ void Board::SpawnPickup(int row, int collumn)		//all pickups being added to the 
 		if (Pickups[i]->getPosition().x == -200 && Pickups[i]->getPosition().y == -200)
 		{
 			Pickups[i]->setPosition(x, y);
+			for (unsigned int j = 0; j < Pickups.size(); j++)
+			{
+				if (Pickups[i]->getPosition() == Pickups[j]->getPosition() && i != j)
+				{
+					Pickups[i]->setPosition(-200, -200);
+					//SpawnPickup(1, 1);
+				}
+			}
 			break;
 		}
 	}

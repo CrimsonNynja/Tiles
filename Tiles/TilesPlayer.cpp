@@ -81,6 +81,9 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 {
 	__super::Update();
 	gui.Update();
+
+	TimeElapsed = Timer.getElapsedTime();
+	gui.setTimer(TimeElapsed.asSeconds());
 	
 	bool bOnBoard = false;
 

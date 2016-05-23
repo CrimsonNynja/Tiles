@@ -66,6 +66,11 @@ private:
 	CheckBox VSyncBox;
 	GameText VSyncText;
 
+	//pause menu items
+	GameSprite PauseCard;
+	Button Resume;
+	Button PMainMenu;
+
 	//menu variables
 
 };

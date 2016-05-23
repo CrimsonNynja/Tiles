@@ -3,132 +3,156 @@
 Menu::Menu()
 {
 	//Menu Title Text
-	MenuTitle.setFont(*TextureHandler::instance()->getFont());
+	MenuTitle.setFont(*TexHandler->getFont());
 	MenuTitle.setCharacterSize(70);
 	MenuTitle.setColor(sf::Color::Black);
 	MenuTitle.setPosition((std::stoi(getValueFromFile("FrameWidth", "Default.ini")) / 2) - 100.f, 50);
 	MenuTitle.setString("Tiles");
-	ImageHandler::instance()->AddToDrawList("UI-Menu", &MenuTitle);
-	ImageHandler::instance()->AddToDrawList("UI-Shop", &MenuTitle);
-	ImageHandler::instance()->AddToDrawList("UI-Options", &MenuTitle);
+	ImgHandler->AddToDrawList("UI-Menu", &MenuTitle);
+	ImgHandler->AddToDrawList("UI-Shop", &MenuTitle);
+	ImgHandler->AddToDrawList("UI-Options", &MenuTitle);
 
 	if (DEVICETYPE == "PC")
 	{
 	//MAIN MENU
 		//Play Button
 		MainContainer.AddElement(&PlayBtn);
-		PlayBtn.setImages(TextureHandler::instance()->getTexture("p-MenuCardIA"),
-			TextureHandler::instance()->getTexture("p-MenuCardH"),
-			TextureHandler::instance()->getTexture("p-MenuCardA"), 490, 150);
+		PlayBtn.setImages(TexHandler->getTexture("p-MenuCardIA"),
+			TexHandler->getTexture("p-MenuCardH"),
+			TexHandler->getTexture("p-MenuCardA"), 490, 150);
 		PlayBtn.setPosition(160, 290);
-		PlayBtn.AddText("Play", TextureHandler::instance()->getFont(), sf::Color::Black, 35, 0, 0);
+		PlayBtn.AddText("Play", TexHandler->getFont(), sf::Color::Black, 35, 0, 0);
 		PlayBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &PlayBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", PlayBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &PlayBtn);
+		ImgHandler->AddToDrawList("UI-Menu", PlayBtn.getText());
 
 		//Options Button
 		MainContainer.AddElement(&OptionBtn);
-		OptionBtn.setImages(TextureHandler::instance()->getTexture("p-MenuCardIA"),
-			TextureHandler::instance()->getTexture("p-MenuCardH"),
-			TextureHandler::instance()->getTexture("p-MenuCardA"), 490, 150);
+		OptionBtn.setImages(TexHandler->getTexture("p-MenuCardIA"),
+			TexHandler->getTexture("p-MenuCardH"),
+			TexHandler->getTexture("p-MenuCardA"), 490, 150);
 		OptionBtn.setPosition(315, 490);
-		OptionBtn.AddText("Options", TextureHandler::instance()->getFont(), sf::Color::Black, 35, 0, 0);
+		OptionBtn.AddText("Options", TexHandler->getFont(), sf::Color::Black, 35, 0, 0);
 		OptionBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &OptionBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", OptionBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &OptionBtn);
+		ImgHandler->AddToDrawList("UI-Menu", OptionBtn.getText());
 
 		//Shop Button
 		MainContainer.AddElement(&ShopBtn);
-		ShopBtn.setImages(TextureHandler::instance()->getTexture("p-MenuCardIA"),
-			TextureHandler::instance()->getTexture("p-MenuCardH"),
-			TextureHandler::instance()->getTexture("p-MenuCardA"), 490, 150);
+		ShopBtn.setImages(TexHandler->getTexture("p-MenuCardIA"),
+			TexHandler->getTexture("p-MenuCardH"),
+			TexHandler->getTexture("p-MenuCardA"), 490, 150);
 		ShopBtn.setPosition(315, 705);
-		ShopBtn.AddText("Shop", TextureHandler::instance()->getFont(), sf::Color::Black, 35, 0, 0);
+		ShopBtn.AddText("Shop", TexHandler->getFont(), sf::Color::Black, 35, 0, 0);
 		ShopBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &ShopBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", ShopBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &ShopBtn);
+		ImgHandler->AddToDrawList("UI-Menu", ShopBtn.getText());
 
 		//Quit Button
 		MainContainer.AddElement(&QuitBtn);
-		QuitBtn.setImages(TextureHandler::instance()->getTexture("p-MenuCardIA"),
-			TextureHandler::instance()->getTexture("p-MenuCardH"),
-			TextureHandler::instance()->getTexture("p-MenuCardA"), 490, 150);
+		QuitBtn.setImages(TexHandler->getTexture("p-MenuCardIA"),
+			TexHandler->getTexture("p-MenuCardH"),
+			TexHandler->getTexture("p-MenuCardA"), 490, 150);
 		QuitBtn.setPosition(160, 900);
-		QuitBtn.AddText("Quit", TextureHandler::instance()->getFont(), sf::Color::Black, 35, 0, 0);
+		QuitBtn.AddText("Quit", TexHandler->getFont(), sf::Color::Black, 35, 0, 0);
 		QuitBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &QuitBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", QuitBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &QuitBtn);
+		ImgHandler->AddToDrawList("UI-Menu", QuitBtn.getText());
 	}
 	else if (DEVICETYPE == "MOBILE")
 	{
 	//MAIN MENU
 		//Play Button
-		PlayBtn.setImages(TextureHandler::instance()->getTexture("m-MenuCardIA"),
-			TextureHandler::instance()->getTexture("m-MenuCardH"),
-			TextureHandler::instance()->getTexture("m-MenuCardA"), 450, 690);
+		PlayBtn.setImages(TexHandler->getTexture("m-MenuCardIA"),
+			TexHandler->getTexture("m-MenuCardH"),
+			TexHandler->getTexture("m-MenuCardA"), 450, 690);
 		PlayBtn.setPosition(30, 360);
-		PlayBtn.AddText("Play", TextureHandler::instance()->getFont(), sf::Color::White, 35, 0, 0);
+		PlayBtn.AddText("Play", TexHandler->getFont(), sf::Color::White, 35, 0, 0);
 		PlayBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &PlayBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", PlayBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &PlayBtn);
+		ImgHandler->AddToDrawList("UI-Menu", PlayBtn.getText());
 
 		//Options Button
-		OptionBtn.setImages(TextureHandler::instance()->getTexture("m-MenuCardIA"),
-			TextureHandler::instance()->getTexture("m-MenuCardH"),
-			TextureHandler::instance()->getTexture("m-MenuCardA"), 450, 690);
+		OptionBtn.setImages(TexHandler->getTexture("m-MenuCardIA"),
+			TexHandler->getTexture("m-MenuCardH"),
+			TexHandler->getTexture("m-MenuCardA"), 450, 690);
 		OptionBtn.setPosition(505, 360);
-		OptionBtn.AddText("Options", TextureHandler::instance()->getFont(), sf::Color::White, 35, 0, 0);
+		OptionBtn.AddText("Options", TexHandler->getFont(), sf::Color::White, 35, 0, 0);
 		OptionBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &OptionBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", OptionBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &OptionBtn);
+		ImgHandler->AddToDrawList("UI-Menu", OptionBtn.getText());
 
 		//Shop Button
-		ShopBtn.setImages(TextureHandler::instance()->getTexture("m-MenuCardIA"),
-			TextureHandler::instance()->getTexture("m-MenuCardH"),
-			TextureHandler::instance()->getTexture("m-MenuCardA"), 450, 690);
+		ShopBtn.setImages(TexHandler->getTexture("m-MenuCardIA"),
+			TexHandler->getTexture("m-MenuCardH"),
+			TexHandler->getTexture("m-MenuCardA"), 450, 690);
 		ShopBtn.setPosition(980, 360);
-		ShopBtn.AddText("Shop", TextureHandler::instance()->getFont(), sf::Color::White, 35, 0, 0);
+		ShopBtn.AddText("Shop", TexHandler->getFont(), sf::Color::White, 35, 0, 0);
 		ShopBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &ShopBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", ShopBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &ShopBtn);
+		ImgHandler->AddToDrawList("UI-Menu", ShopBtn.getText());
 
 		//Quit Button
-		QuitBtn.setImages(TextureHandler::instance()->getTexture("m-MenuCardIA"),
-			TextureHandler::instance()->getTexture("m-MenuCardH"),
-			TextureHandler::instance()->getTexture("m-MenuCardA"), 450, 690);
+		QuitBtn.setImages(TexHandler->getTexture("m-MenuCardIA"),
+			TexHandler->getTexture("m-MenuCardH"),
+			TexHandler->getTexture("m-MenuCardA"), 450, 690);
 		QuitBtn.setPosition(1455, 360);
-		QuitBtn.AddText("Quit", TextureHandler::instance()->getFont(), sf::Color::White, 35, 0, 0);
+		QuitBtn.AddText("Quit", TexHandler->getFont(), sf::Color::White, 35, 0, 0);
 		QuitBtn.CenterText();
-		ImageHandler::instance()->AddToDrawList("UI-Menu", &QuitBtn);
-		ImageHandler::instance()->AddToDrawList("UI-Menu", QuitBtn.getText());
+		ImgHandler->AddToDrawList("UI-Menu", &QuitBtn);
+		ImgHandler->AddToDrawList("UI-Menu", QuitBtn.getText());
 	}
 
 	//GLOBALS / ITEMS THAT DONT HAVE AN ALTERNATE IMAGE YET
-	VSyncBox.setImages(TextureHandler::instance()->getTexture("CheckBoxIA"),  
-		TextureHandler::instance()->getTexture("CheckBoxH"),
-		TextureHandler::instance()->getTexture("CheckBoxA"), 100, 100);
+	VSyncBox.setImages(TexHandler->getTexture("CheckBoxIA"),  
+		TexHandler->getTexture("CheckBoxH"),
+		TexHandler->getTexture("CheckBoxA"), 100, 100);
 	VSyncBox.setPosition(100, 300);
-	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncBox);
+	ImgHandler->AddToDrawList("UI-Options", &VSyncBox);
 	VSyncBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));	//not working
 	std::cout << VSyncBox.IsChecked();
 
 	VSyncText.setString("V-Sync");
-	VSyncText.setFont(*TextureHandler::instance()->getFont());
+	VSyncText.setFont(*TexHandler->getFont());
 	VSyncText.setPosition(98, 410);
 	VSyncText.setColor(sf::Color::Black);
-	ImageHandler::instance()->AddToDrawList("UI-Options", &VSyncText);
+	ImgHandler->AddToDrawList("UI-Options", &VSyncText);
 
-	BackBtn.setImages(TextureHandler::instance()->getTexture("BackButton"),
-		TextureHandler::instance()->getTexture("BackButtonH"),
-		TextureHandler::instance()->getTexture("BackButton"), 400, 150);
+	BackBtn.setImages(TexHandler->getTexture("BackButton"),
+		TexHandler->getTexture("BackButtonH"),
+		TexHandler->getTexture("BackButton"), 400, 150);
 	BackBtn.setPosition(100, 100);
-	BackBtn.AddText("Back", TextureHandler::instance()->getFont(), sf::Color::White, 34, 100, 100);
+	BackBtn.AddText("Back", TexHandler->getFont(), sf::Color::White, 34, 100, 100);
 	BackBtn.CenterText();
-	ImageHandler::instance()->AddToDrawList("UI-Options", &BackBtn);		//should add to the other sub menues later
-	ImageHandler::instance()->AddToDrawList("UI-Options", BackBtn.getText());		//should add to the other sub menues later
-	ImageHandler::instance()->AddToDrawList("UI-Shop", &BackBtn);
-	ImageHandler::instance()->AddToDrawList("UI-Shop", BackBtn.getText());		//should add to the other sub menues later
+	ImgHandler->AddToDrawList("UI-Options", &BackBtn);		//should add to the other sub menues later
+	ImgHandler->AddToDrawList("UI-Options", BackBtn.getText());
+	ImgHandler->AddToDrawList("UI-Shop", &BackBtn);
+	ImgHandler->AddToDrawList("UI-Shop", BackBtn.getText());
 
+	PauseCard.setAnimation(TexHandler->getTexture("PauseCard"), 400, 600);
+	PauseCard.setPosition(((1920 - PauseCard.getGlobalBounds().width) / 2), (1080 - PauseCard.getGlobalBounds().height) / 2);		//
+	PauseCard.setDrawLayer(1);
+	ImgHandler->AddToDrawList("UI-Pause", &PauseCard);
+
+	Resume.setImages(TexHandler->getTexture("PauseButtonIA"), 
+		TexHandler->getTexture("PauseButtonH"), 
+		TexHandler->getTexture("PauseButtonIA"), 380, 125);
+	Resume.setPosition(PauseCard.getPosition().x + ((PauseCard.getGlobalBounds().width - Resume.getGlobalBounds().width) / 2), 400);
+	Resume.AddText("Resume", TexHandler->getFont(), sf::Color::White, 24, 100, 100);
+	Resume.CenterText();
+	Resume.setDrawLayer(0);
+	ImgHandler->AddToDrawList("UI-Pause", &Resume);
+	ImgHandler->AddToDrawList("UI-Pause", Resume.getText());
+
+	PMainMenu.setImages(TexHandler->getTexture("PauseButtonIA"),
+		TexHandler->getTexture("PauseButtonH"),
+		TexHandler->getTexture("PauseButtonIA"), 380, 125);
+	PMainMenu.setPosition(PauseCard.getPosition().x + ((PauseCard.getGlobalBounds().width - Resume.getGlobalBounds().width) / 2), 600);
+	PMainMenu.AddText("Main Menu", TexHandler->getFont(), sf::Color::White, 24, 100, 100);
+	PMainMenu.CenterText();
+	PMainMenu.setDrawLayer(0);
+	ImgHandler->AddToDrawList("UI-Pause", &PMainMenu);
+	ImgHandler->AddToDrawList("UI-Pause", PMainMenu.getText());
 }
 
 void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
@@ -149,7 +173,8 @@ void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 		BackBtn.EventUpdate(window, bevent);
 		break;
 	case PAUSE:
-
+		Resume.EventUpdate(window, bevent);
+		PMainMenu.EventUpdate(window, bevent);
 	case PLAY:
 		if (bevent.type == sf::Event::KeyPressed && bevent.key.code == sf::Keyboard::Escape)
 		{
@@ -161,6 +186,7 @@ void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 
 void Menu::Update()
 {
+	//std::cout << this->getMenuState() << std::endl;
 	switch (menuState)
 	{
 	case MAIN:
@@ -293,7 +319,18 @@ void Menu::Shop()
 
 void Menu::Pause()
 {
-	std::cout << "The game pauses here" << std::endl;
+	Resume.Update();
+	PMainMenu.Update();
+
+	if (Resume.IsActive() == true)
+	{
+		menuState = PLAY;
+		ResetButtons();
+	}
+	else if (PMainMenu.IsActive() == true)
+	{
+		menuState = MAIN;
+	}
 }
 
 void Menu::ResetButtons()
@@ -303,5 +340,7 @@ void Menu::ResetButtons()
 	OptionBtn.setActive(false);
 	ShopBtn.setActive(false);
 	QuitBtn.setActive(false);
+	Resume.setActive(false);
+	PMainMenu.setActive(false);
 	//VSyncBox.setActive(false);
 }

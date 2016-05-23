@@ -28,6 +28,11 @@ void GUI::AddCurrency(int ammount, sf::Vector2f position)
 	bMoveCurrencyText = true;
 }
 
+void GUI::setTimer(int Time)
+{
+	Timer.setString(std::to_string(Time) + " sec");
+}
+
 void GUI::Update()
 {
 	Score.Update();
