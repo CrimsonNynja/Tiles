@@ -17,6 +17,8 @@ ImageHandler *ImageHandler::s_instance = 0;
 
 int main()
 {
+	ChangeValue("CurrentVersion", "0.04", "Default.ini");
+
 	sf::RenderWindow window(sf::VideoMode(
 		stoi(getValueFromFile("FrameWidth", "Default.ini")),
 		stoi(getValueFromFile("FrameHeight", "Default.ini"))),
@@ -33,13 +35,13 @@ int main()
 	TilesPlayer Player;
 	Profile PlayerProfile;
 
-	TilesBoard.CreateBoard();					//moving this gives a vector subscript error, find put 
+	TilesBoard.CreateBoard();
 	TilesBoard.PlacePlayer(&Player, 0, 0);
 
 	while (window.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (window.pollEvent(event))		//add an exception so that when an error is sent when a computer resumes from hybnernation, the game doesnt crash
 		{
 			if (event.type == sf::Event::Closed)
 			{

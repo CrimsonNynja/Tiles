@@ -43,12 +43,39 @@ std::string getValueFromFile(std::string PropertyName, std::string FileDir)
 
 void ChangeValue(std::string PropertyName, std::string value, std::string FileDir)
 {
+	std::string contents;
+	std::vector<std::string> contentsFull;
+	std::ifstream file(FileDir);
 	
+	if (file.is_open())
+	{
+		while (std::getline(file, contents))
+		{
+			contentsFull.push_back(contents);
+		}
+		for (unsigned i = 0; i < contentsFull.size(); i++)
+		{
+			if (strstr(contentsFull[i].c_str(), PropertyName.c_str()) != NULL)
+			{
+				contentsFull[i] = PropertyName + " = " + value;
+			}
+		}
+	}
+	file.close();
+
+
+	std::ofstream file2(FileDir);
+	for (auto x: contentsFull)
+	{
+		file2 << x << std::endl;
+	}
+
+	file2.close();
 }
 
 bool StringToBool(std::string str)
 {
-	if (str == "true" || str[0] == 1)
+	if (str[0] == '1' || str == "true")
 	{
 		return true;
 	}

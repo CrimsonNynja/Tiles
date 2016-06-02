@@ -34,7 +34,7 @@ void CheckBox::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 
 void CheckBox::Update()		//need an event handler, so that the checkbox can be unchecked
 {
-	std::cout << bActive << std::endl;
+	//std::cout << bActive << std::endl;
 	__super::Update();
 
 	if (state != nullptr)

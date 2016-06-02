@@ -110,7 +110,6 @@ Menu::Menu()
 	VSyncBox.setPosition(100, 300);
 	ImgHandler->AddToDrawList("UI-Options", &VSyncBox);
 	VSyncBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));	//not working
-	std::cout << VSyncBox.IsChecked();
 
 	VSyncText.setString("V-Sync");
 	VSyncText.setFont(*TexHandler->getFont());
@@ -164,6 +163,7 @@ void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 		OptionBtn.EventUpdate(window, bevent);
 		ShopBtn.EventUpdate(window, bevent);
 		QuitBtn.EventUpdate(window, bevent);
+		window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
 		break;
 	case OPTIONS:
 		VSyncBox.EventUpdate(window, bevent);
@@ -296,7 +296,11 @@ void Menu::Options()
 
 	if (VSyncBox.IsChecked() == true)
 	{
-		//change value in file
+		ChangeValue("V-syncEnabled", "1", "Default.ini");
+	}
+	else
+	{
+		ChangeValue("V-syncEnabled", "0", "Default.ini");
 	}
 
 	if (BackBtn.IsActive() == true)
