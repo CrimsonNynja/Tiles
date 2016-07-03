@@ -17,12 +17,21 @@ void GameSprite::setAnimation(sf::Texture* tex, int width, int height)
 
 void GameSprite::setHidden(bool bTrue)
 {
-	bidden = bTrue;
+	bHidden = bTrue;
+
+	if (bHidden == true)
+	{
+		this->setColor(sf::Color(this->getColor().r, this->getColor().g, this->getColor().b, 0));
+	}
+	else
+	{	//note the if the alpha value is to be save, it isnt doing that here, change later, it might even be worth just not drawing the tile here as well
+		this->setColor(sf::Color(this->getColor().r, this->getColor().g, this->getColor().b, 255));
+	}
 }
 
 bool GameSprite::IsHidden() const
 {
-	return bidden;
+	return bHidden;
 }
 
 Animation* GameSprite::getAnimationComponent()

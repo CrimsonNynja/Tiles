@@ -21,6 +21,7 @@ void ImageHandler::Draw(std::string ListName, sf::RenderWindow & window)
 	{
 		window.draw(*UIDawables[ListName][i]);
 	}
+	//std::cout << Drawables[ListName].size() << std::endl;
 }
 
 void ImageHandler::Sort(std::string ListName)

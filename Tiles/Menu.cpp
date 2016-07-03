@@ -104,12 +104,13 @@ Menu::Menu()
 	}
 
 	//GLOBALS / ITEMS THAT DONT HAVE AN ALTERNATE IMAGE YET
+	// V-Syncronisation box
 	VSyncBox.setImages(TexHandler->getTexture("CheckBoxIA"),  
 		TexHandler->getTexture("CheckBoxH"),
 		TexHandler->getTexture("CheckBoxA"), 100, 100);
 	VSyncBox.setPosition(100, 300);
 	ImgHandler->AddToDrawList("UI-Options", &VSyncBox);
-	VSyncBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));	//not working
+	VSyncBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
 
 	VSyncText.setString("V-Sync");
 	VSyncText.setFont(*TexHandler->getFont());
@@ -117,6 +118,21 @@ Menu::Menu()
 	VSyncText.setColor(sf::Color::Black);
 	ImgHandler->AddToDrawList("UI-Options", &VSyncText);
 
+	// Frame limit box
+	FrameLimitBox.setImages(TexHandler->getTexture("CheckBoxIA"),
+		TexHandler->getTexture("CheckBoxH"),
+		TexHandler->getTexture("CheckBoxA"), 100, 100);
+	FrameLimitBox.setPosition(300, 300);
+	ImgHandler->AddToDrawList("UI-Options", &FrameLimitBox);
+	//FrameLimitBox.setActive(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
+
+	FrameLimitText.setString("Frame Limit");
+	FrameLimitText.setFont(*TexHandler->getFont());
+	FrameLimitText.setPosition(268, 410);
+	FrameLimitText.setColor(sf::Color::Black);
+	ImgHandler->AddToDrawList("UI-Options", &FrameLimitText);
+
+	//back button
 	BackBtn.setImages(TexHandler->getTexture("BackButton"),
 		TexHandler->getTexture("BackButtonH"),
 		TexHandler->getTexture("BackButton"), 400, 150);
@@ -167,6 +183,7 @@ void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 		break;
 	case OPTIONS:
 		VSyncBox.EventUpdate(window, bevent);
+		FrameLimitBox.EventUpdate(window, bevent);
 		BackBtn.EventUpdate(window, bevent);
 		break;
 	case SHOP:
@@ -186,7 +203,6 @@ void Menu::EventUpdate(sf::RenderWindow & window, sf::Event & bevent)
 
 void Menu::Update()
 {
-	//std::cout << this->getMenuState() << std::endl;
 	switch (menuState)
 	{
 	case MAIN:
@@ -257,7 +273,7 @@ void Menu::MainMenu()
 	//updates
 //	if (DEVICETYPE == "PC")
 	{
-//		MainContainer.Update(window);	//this stops the text from centering as it probably need to push a cast
+//		MainContainer.Update(window);	//this stops the text from centering as it probably needs to push a cast
 	}
 //	else
 	{
@@ -292,6 +308,7 @@ void Menu::Options()
 	MenuTitle.setString("Options");
 
 	VSyncBox.Update();
+	FrameLimitBox.Update();
 	BackBtn.Update();
 
 	if (VSyncBox.IsChecked() == true)
@@ -301,6 +318,15 @@ void Menu::Options()
 	else
 	{
 		ChangeValue("V-syncEnabled", "0", "Default.ini");
+	}
+
+	if (FrameLimitBox.IsChecked() == true)
+	{
+		ChangeValue("FPSLimit", "60", "Default.ini");
+	}
+	else
+	{
+		ChangeValue("FPSLimit", "1000", "Default.ini");
 	}
 
 	if (BackBtn.IsActive() == true)
@@ -346,5 +372,4 @@ void Menu::ResetButtons()
 	QuitBtn.setActive(false);
 	Resume.setActive(false);
 	PMainMenu.setActive(false);
-	//VSyncBox.setActive(false);
 }

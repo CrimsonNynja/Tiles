@@ -3,7 +3,8 @@
 Tile::Tile()
 {
 	this->setAnimation(TextureHandler::instance()->getTexture("Tile"), 144, 124);
-	this->drawLayer = 4;;
+	this->drawLayer = 4;
+	//lastPosition = this->getPosition();
 }
 
 void Tile::setLastPosition()

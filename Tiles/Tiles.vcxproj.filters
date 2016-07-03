@@ -102,6 +102,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">

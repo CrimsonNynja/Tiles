@@ -65,6 +65,8 @@ private:
 	//options Items
 	CheckBox VSyncBox;
 	GameText VSyncText;
+	CheckBox FrameLimitBox;
+	GameText FrameLimitText;
 
 	//pause menu items
 	GameSprite PauseCard;

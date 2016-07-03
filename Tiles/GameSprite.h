@@ -22,5 +22,5 @@ protected:
 	CollisionComponent Collision{ this };
 
 	int drawLayer = 0;
-	bool bidden = false;
+	bool bHidden = false;
 };

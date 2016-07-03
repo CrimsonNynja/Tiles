@@ -14,24 +14,47 @@ class Board
 {
 public:
 	~Board();
-	void CreateBoard();
-	void DeleteBoard();
+	void CreateBoard(int RowSize, int CollumnSize);		//might accept an image here later as well
 	void Reset();
-	void PlacePlayer(TilesPlayer* Player, int row = -1, int collumn = -1);	//if -1, assume random placing 
-	void SpawnPickup(int row = -1, int collumn = -1);
+	Tile* getTile(int index);
+	Tile* getTile(int row, int collumn);
+	int getTileIndex(int row, int collumn);
+	int getBoardSize();
+	void MoveRow(int RowNo);		//ensure no tiles are moving before begining
+	void MoveCollumn(int CollumnNo);
+	bool IsOnBoundry(int index);
+
 	void Update();
 
 private:
-	void MoveRow(int row);
-	void MoveCollumn(int collumn);
+	/* Board Variables */
+	int rowSize = 0;
+	int collumnSize = 0;
+
+	sf::Vector2f Offset;
+
+	std::vector<Tile*> Tiles;
+	Tile* TempTile;	//used when moving a row or collumn, to go ont the end
+
+	/* Moving Tile Vars */
+	void(Board::*FunctPointer)(int) = NULL;
+	int FptrBordMoving = 0;
+	bool bMoving = false;
+	short int MoveDirection = 0; // 1 is +ve and -1 is -ve, 0 is stationry
+};
+
+/*
+class Board
+{
+public:
+	void DeleteBoard();
+	void PlacePlayer(TilesPlayer* Player, int row = -1, int collumn = -1);	//if -1, assume random placing 
+	void SpawnPickup(int row = -1, int collumn = -1);
+
+private:
 	void OrganiseVector(bool bRow, bool bPositive, int index);
 
 	void GameLoop();
-
-	CollisionManager CollisionMngr;
-
-	sf::Clock Timer;
-	sf::Time TimeElapsed;
 
 	enum boardDirection
 	{
@@ -46,11 +69,9 @@ private:
 	int evnetTime = 0;
 
 	bool RowCollumn = 0;
-	int RowColNum;
 
-	bool bOrganiseVector = false;
+	bool bOrganiseVector = false; 
 
-	std::vector<std::vector<Tile*>> Tiles;	//12 x 7
-	Tile* TempTile;
-	std::vector<Pickup*> Pickups;
+]	std::vector<Pickup*> Pickups;
 };
+*/

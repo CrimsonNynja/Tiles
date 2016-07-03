@@ -190,5 +190,7 @@ void TilesPlayer::Die()
 	{
 		this->setScale(this->getScale().x - 0.05, this->getScale().y - 0.05);
 	}
+	ChangeValue("HighScore", std::to_string(score), "Data.ini");
+	ChangeValue("Currency", std::to_string(currency), "Data.ini");
 	//game over screen access goes here
 }

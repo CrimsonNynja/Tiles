@@ -12,6 +12,5 @@ public:
 	void Update();
 
 protected:
-	sf::Vector2f lastPosition;
-
+	sf::Vector2f lastPosition{ 0, 0 };
 };

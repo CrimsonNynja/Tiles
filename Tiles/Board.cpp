@@ -4,314 +4,210 @@ Board::~Board()
 {
 	delete TempTile;
 
-	for (auto x : Pickups)
+	for (unsigned i = 0; i < Tiles.size(); i++)
 	{
-		delete x;
+		delete Tiles[i];
 	}
-//	for (unsigned i = 0; i < Tiles.size(); i ++)
-//	{
-//		for (unsigned j = 0; j < Tiles[i].size(); j ++)
-//		{
-//			delete Tiles[i][j];		//error up after doing the resettihng of the vector, stops at 5?
-//		}
-//	}
 	Tiles.clear();
 }
 
-void Board::CreateBoard()
+void Board::CreateBoard(int RowSize, int CollumnSize)	//row and collumn may be round the wrong way
 {
-//	srand(time(0));
+	collumnSize = CollumnSize;
+	rowSize = RowSize;
 
-	Timer.restart();	//should do after starting game, also needs to pause with the game later
-	this->Reset();
-
-	for (unsigned i = 0; i < 12; i ++)
+	for (unsigned i = 0; i < (RowSize * CollumnSize); i++)
 	{
-		Pickups.push_back(new Pickup());
+		Tiles.push_back(new Tile());
 	}
 
-	for (unsigned int i = 0; i < Pickups.size(); i ++)
-	{
-		CollisionMngr.AddComponent(Pickups[i]->getCollisionComponent());
-		SpawnPickup(rand() % 7, rand() % 12);
-	}
 	TempTile = new Tile;
-	TempTile->setPosition(-200, -200);
+	TempTile->setPosition(-200, -200);				//set the Tile off screen
+	TempTile->setHidden(true);
 	ImgHandler->AddToDrawList("Game", TempTile);
 	ImgHandler->Sort("Game");
-}
 
-void Board::DeleteBoard()
-{
-	Tiles.clear();
+	Offset.x = (1920 - (collumnSize * TempTile->getGlobalBounds().width)) / 2;			//make dynamic later
+	Offset.y = (1080 - (rowSize * TempTile->getGlobalBounds().height)) / 2;				//make dynamic later
+
+	this->Reset();
+
 }
 
 void Board::Reset()
 {
-	Tiles.resize(7);
-	for (int i = 0; i < Tiles.size(); i++)
+	sf::Vector2f position = Offset;
+
+	for (unsigned i = 0; i < Tiles.size(); i++)
 	{
-		for (unsigned j = 0; j < 12; j ++)
+		ImgHandler->AddToDrawList("Game", Tiles[i]);
+		Tiles[i]->setDrawLayer(5);
+
+		Tiles[i]->setPosition(position);
+		Tiles[i]->setLastPosition();
+		position.x += Tiles[i]->getGlobalBounds().width;
+
+		if (position.x >= 1920 - Offset.x)
 		{
-			Tiles[i].push_back(new Tile());
+			position.y += Tiles[i]->getGlobalBounds().height;
+			position.x = Offset.x;
 		}
 	}
+	ImgHandler->Sort("Game");
+}
 
-	float x = 80, y = 124;
+Tile* Board::getTile(int index)
+{
+	return Tiles[index];
+}
 
-	for (unsigned int i = 0; i < Tiles.size(); i++)
+Tile* Board::getTile(int row, int collumn)
+{
+	if (getTileIndex(row, collumn) != -1)
 	{
-		for (unsigned int j = 0; j < Tiles[i].size(); j++)
-		{
-			Tiles[i][j]->setPosition(x, y);
-			x += Tiles[i][j]->getGlobalBounds().width;
-//			std::cout << x << std::endl;
-			ImageHandler::instance()->AddToDrawList("Game", Tiles[i][j]);
-			CollisionMngr.AddComponent(Tiles[i][j]->getCollisionComponent());
-		}
-		x = 80;
-		y += Tiles[i][1]->getGlobalBounds().height;
+		return Tiles[getTileIndex(row, collumn)];
+	}
+	else
+	{
+		return nullptr;
 	}
 }
 
-void Board::PlacePlayer(TilesPlayer* Player, int row, int collumn)
+int Board::getTileIndex(int row, int collumn)
 {
-	CollisionMngr.AddComponent(Player->getCollisionComponent());
-
-	Player->setPosition(Tiles[row][collumn]->getPosition().x, Tiles[row][collumn]->getPosition().y - 100);
-
-	//TODO random spawns if -1
-}
-
-void Board::SpawnPickup(int row, int collumn)		//all pickups being added to the list, but only the last one comes back detected
-{
-	float x = Tiles[row][collumn]->getPosition().x;
-	float y = Tiles[row][collumn]->getPosition().y;
-
-	for (unsigned int i = 0; i < Pickups.size(); i++)
+	if (row <= rowSize && collumn <= collumnSize)
 	{
-		if (Pickups[i]->getPosition().x == -200 && Pickups[i]->getPosition().y == -200)
+		int rowCount = 0;
+		for (unsigned i = 0; i < Tiles.size(); i++)
 		{
-			Pickups[i]->setPosition(x, y);
-			for (unsigned int j = 0; j < Pickups.size(); j++)
+			float f = float(i + 1) / float(collumnSize);
+
+			if ((ceil(f) == row))
 			{
-				if (Pickups[i]->getPosition() == Pickups[j]->getPosition() && i != j)
+				rowCount += 1;
+				if (rowCount == collumn)
 				{
-					Pickups[i]->setPosition(-200, -200);
-					//SpawnPickup(1, 1);
+					//std::cout << i << std::endl;
+					return i;
 				}
 			}
-			break;
 		}
 	}
+	else
+	{
+		std::cout << "the specified tile is out of the bounds of the board of size: " << rowSize << ", " << collumnSize << std::endl;
+		return -1;
+	}
+
+	std::cout << "error, cannot fid the tile at: " << row << ", " << collumn << std::endl;
+	return -1;
+}
+
+int Board::getBoardSize()
+{
+	return (rowSize * collumnSize);
+}
+
+void Board::MoveRow(int RowNo)
+{
+	Tile* Temp;
+	bMoving = true;
+	FunctPointer = &Board::MoveRow;
+	FptrBordMoving = RowNo;
+	MoveDirection = -1;
+
+	/* get all the nessasary tiles */
+	for (unsigned i = 1; i < collumnSize + 1; i++)
+	{
+		if (getTileIndex(RowNo, i) != -1)
+		{
+			Tiles[getTileIndex(RowNo, i)]->setPosition(Tiles[getTileIndex(RowNo, i)]->getPosition().x + (5 * MoveDirection), Tiles[getTileIndex(RowNo, i)]->getPosition().y);
+		}
+	}
+
+	/* set the Temp tile to the end of the row */
+	TempTile->setHidden(false);
+	if (MoveDirection == 1)
+	{
+		TempTile->setPosition(getTile(RowNo, 1)->getPosition().x - TempTile->getGlobalBounds().width, getTile(RowNo, 1)->getPosition().y);
+	}
+	else if (MoveDirection == -1)
+	{
+		TempTile->setPosition(getTile(RowNo, collumnSize)->getPosition().x + TempTile->getGlobalBounds().width, getTile(RowNo, 1)->getPosition().y);
+	}
+
+	/* Test if the row has moved a tiles length */
+	if ((MoveDirection == 1 && (Tiles[getTileIndex(RowNo, 1)]->getPosition().x
+		>= Tiles[getTileIndex(RowNo, 1)]->getLastPosition().x + Tiles[getTileIndex(RowNo, 1)]->getGlobalBounds().width))
+		|| (MoveDirection == -1 && (Tiles[getTileIndex(RowNo, 1)]->getPosition().x
+			<= Tiles[getTileIndex(RowNo, 1)]->getLastPosition().x - Tiles[getTileIndex(RowNo, 1)]->getGlobalBounds().width)))
+	{
+		if (MoveDirection == 1)
+		{
+			Temp = TempTile;
+			TempTile = Tiles[getTileIndex(RowNo, collumnSize)];
+			for (unsigned i = 12; i > 1; i--)	//from 12-2
+			{
+				Tiles[getTileIndex(RowNo, i)] = Tiles[getTileIndex(RowNo, i - 1)];
+			}
+			Tiles[getTileIndex(RowNo, 1)] = Temp;
+			Temp = NULL;
+		}
+		else
+		{
+			Temp = TempTile;
+			TempTile = Tiles[getTileIndex(RowNo, 1)];
+			for (unsigned i = 1; i < collumnSize; i++)	//from 1-11
+			{
+				Tiles[getTileIndex(RowNo, i)] = Tiles[getTileIndex(RowNo, i + 1)];
+			}
+			Tiles[getTileIndex(RowNo, collumnSize)] = Temp;
+			Temp = NULL;
+		}
+
+		//should set the tiles to an exact position here as well///////////////////
+		bMoving = false;
+		MoveDirection = 0;
+		FunctPointer = NULL;
+	}
+	/*  */
+}
+
+bool Board::IsOnBoundry(int index)
+{
+	if ((index % collumnSize == 0) || index % collumnSize == 1)
+	{
+		//on the side of the x axis
+		return true;
+	}
+	if ((index <= rowSize) || index >= Tiles.size() - rowSize)
+	{
+		//on the side of the y axis
+		return true;
+	}
+	return false;
 }
 
 void Board::Update()
 {
-	//collision testing goes here
-	GameLoop();
-
-	for (unsigned int i = 0; i < Pickups.size(); i ++)
+	for (unsigned i = 0; i < Tiles.size(); i++)
 	{
-		Pickups[i]->Update();
+		Tiles[i]->Update();
 	}
-	for (unsigned int i = 0; i < Tiles.size(); i ++)
-	{
-		for (unsigned int j = 0; j < Tiles[i].size(); j ++)
-		{
-			Tiles[i][j]->Update();
-		}
-	}
-	CollisionMngr.TestCollisions();
-	SpawnPickup(rand() % 7, rand() % 12);
+	//	Tiles[getTileIndex(2, 1)]->setColor(sf::Color(0, 0, 255, 255));
+	//TempTile->Update();
 
-
-	if (BoardDirection == ROW)		//need to reorganise the Tiles vector, so that after movign they are all lastInsex +- 1, will need the temp node before i do this
+	if (bMoving == true && FunctPointer != NULL)
 	{
-		for (unsigned int i = 0; i < Tiles[Placement].size(); i ++)
-		{
-			if (bMovePositivly == true)
-			{
-				Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getPosition().x + 8, Tiles[Placement][i]->getPosition().y);
-				if (Tiles[Placement][i]->getPosition().x - Tiles[Placement][i]->getLastPosition().x > 144)
-				{
-					Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getLastPosition().x + 144, Tiles[Placement][i]->getPosition().y);
-					BoardDirection = IDLE;
-				}
-			}
-			else
-			{
-				Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getPosition().x - 8, Tiles[Placement][i]->getPosition().y);
-				if (Tiles[Placement][i]->getLastPosition().x - Tiles[Placement][i]->getPosition().x > 144)
-				{
-					Tiles[Placement][i]->setPosition(Tiles[Placement][i]->getLastPosition().x - 144, Tiles[Placement][i]->getPosition().y);
-					BoardDirection = IDLE;
-				}
-			}
-		}
-
-	}
-	else if (BoardDirection == COLLUMN)
-	{
-		for (unsigned int i = 0; i < Tiles.size(); i++)
-		{
-			if (bMovePositivly == true)
-			{
-				Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getPosition().y + 8);
-				if (Tiles[i][Placement]->getPosition().y - Tiles[i][Placement]->getLastPosition().y > 124)
-				{
-					Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getLastPosition().y + 124);
-					BoardDirection = IDLE;
-				}
-			}
-			else
-			{
-				Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getPosition().y - 8);
-				if (Tiles[i][Placement]->getLastPosition().y - Tiles[i][Placement]->getPosition().y > 124)
-				{
-					Tiles[i][Placement]->setPosition(Tiles[i][Placement]->getPosition().x, Tiles[i][Placement]->getLastPosition().y - 124);
-					BoardDirection = IDLE;
-				}
-			}
-		}
+		(*this.*FunctPointer)(FptrBordMoving);
 	}
 	else
 	{
-		for (unsigned int i = 0; i < Tiles.size(); i++)
+		for (auto x: Tiles)
 		{
-			for (unsigned int j = 0; j < Tiles[i].size(); j++)
-			{
-				Tiles[i][j]->setLastPosition();
-			}
+			x->setLastPosition();
 		}
 	}
 
-	if (bOrganiseVector == true)
-	{
-		if (BoardDirection == ROW)
-		{
-			OrganiseVector(true, bMovePositivly, Placement);
-		}
-		else if (BoardDirection == COLLUMN)
-		{
-			OrganiseVector(false, bMovePositivly, Placement);
-		}
-	}
-}
-
-void Board::MoveRow(int row)
-{
-	BoardDirection = ROW;
-	Placement = row;
-	bMovePositivly = rand() % 2;
-}
-
-void Board::MoveCollumn(int collumn)
-{
-	BoardDirection = COLLUMN;
-	Placement = collumn;
-	bMovePositivly = rand() % 2;
-}
-
-void Board::OrganiseVector(bool bRow, bool bPositive, int index)
-{
-	if (bRow == true)
-	{
-		for (unsigned i = 0; i < Tiles[index].size(); i ++)
-		{
-			if (bPositive == true)
-			{
-				if (i == Tiles[Placement].size() - 1)
-				{
-					Tiles[Placement][0] = Tiles[Placement][i];
-					Tiles[Placement][0]->setPosition(80, Tiles[Placement][0]->getPosition().y);
-				}
-				else
-				{
-					Tiles[Placement][i] = Tiles[Placement][i + 1];
-				}
-			}
-			else
-			{
-				if (i == 0)
-				{
-					Tiles[Placement][Tiles[Placement].size() - 1] = Tiles[Placement][0];
-					Tiles[Placement][Tiles[Placement].size() - 1]->setPosition(80 + (Tiles[0][i]->getGlobalBounds().width * 11), Tiles[Placement][Tiles[Placement].size() - 1]->getPosition().y);
-				}
-				else
-				{
-					Tiles[Placement][i] = Tiles[Placement][i - 1];
-				}
-			}
-		}
-	}
-	else
-	{
-		for (unsigned i = 0; i < Tiles.size(); i ++)
-		{
-			if (bPositive == true)
-			{
-				if (i == Tiles[Placement].size() - 1)
-				{
-					Tiles[0][Placement] = Tiles[i][Placement];
-					//Tile;
-				}
-				else
-				{
-					Tiles[i][Placement] = Tiles[i + 1][Placement];
-				}
-			}
-			else
-			{
-//				if ()
-//				{
-//
-//				}
-//				else
-//				{
-//
-//				}
-			}
-		}
-	}
-
-}
-
-void Board::GameLoop()
-{
-	TimeElapsed = Timer.getElapsedTime();
-
-	if (bActivateEvent == true)
-	{
-		if (TimeElapsed.asSeconds() > 1 && TimeElapsed.asSeconds() < 2)		//set all randoms vars for a time cycle
-		{
-			RowCollumn = rand() % 10;
-			RowColNum = rand() % 7;		//allow it to use the full range of collumn later
-			bActivateEvent = false;
-			evnetTime = TimeElapsed.asSeconds();
-		}
-		if (TimeElapsed.asSeconds() > 4  && TimeElapsed.asSeconds() < 5)	//move row/collumn
-		{
-	//		if (RowCollumn % 2 == 0)
-			{ 
-				MoveRow(RowColNum);
-			}
-	//		else if (RowCollumn % 2 == 1)
-	//		{
-	//			MoveCollumn(RowColNum);
-	//		}
-			bActivateEvent = false;
-			evnetTime = TimeElapsed.asSeconds();
-		}
-	}
-
-	if (TimeElapsed.asSeconds() > (evnetTime + 1))
-	{
-		bActivateEvent = true;
-	}
-
-	if (TimeElapsed.asSeconds() > 10)
-	{
-		Timer.restart();
-	}
+	//std::cout << Tiles[20]->getPosition().x << std::endl;
 }

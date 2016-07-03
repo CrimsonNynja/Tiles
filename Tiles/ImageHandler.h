@@ -8,6 +8,8 @@
 
 #define ImgHandler ImageHandler::instance()
 
+//make later so that the game does nbot draw that which is off screen
+
 class ImageHandler
 {
 public:
