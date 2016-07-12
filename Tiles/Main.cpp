@@ -8,9 +8,11 @@
 #include "INIReader.h"
 
 #include "Menu.h"
-#include "Board.h"
-#include "TilesPlayer.h"
 #include "Profile.h"
+
+#include "GameMode.h"
+#include "DefaultGameType.h"
+#include "TutorialGameMode.h"
 
 TextureHandler *TextureHandler::s_instance = 0;
 ImageHandler *ImageHandler::s_instance = 0;
@@ -25,18 +27,19 @@ int main()
 		"Tiles v" + getValueFromFile("CurrentVersion", "Default.ini"));
 
 	window.setKeyRepeatEnabled(false);
-	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));
+	window.setVerticalSyncEnabled(StringToBool(getValueFromFile("V-syncEnabled", "Default.ini")));		//need to alow these to change on the fly later, mabee oput them in the option update section
 	window.setFramerateLimit(stoi(getValueFromFile("FPSLimit", "Default.ini")));
 
 	TexHandler->setTexturePack("Default");
 	Menu TilesMenu;
 
-	Board TilesBoard;
-	TilesPlayer Player;
 	Profile PlayerProfile;
+	DefaultGameType gameMode;
+	//TutorialGameMode gameMode;
 
-	TilesBoard.CreateBoard();
-	TilesBoard.PlacePlayer(&Player, 0, 0);
+	gameMode.Initialize();
+	//TilesBoard.PlacePlayer(&Player, 0, 0);
+
 
 	while (window.isOpen())
 	{
@@ -51,30 +54,33 @@ int main()
 			{
 				if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
 				{
-					Player.Move("up");
+					gameMode.getPlayer()->Move("up");
 				}
 				if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
 				{
-					Player.Move("down");
+					gameMode.getPlayer()->Move("down");
 				}
 				if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
 				{
-					Player.Move("left");
+					gameMode.getPlayer()->Move("left");
 				}
 				if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
 				{
-					Player.Move("right");
+					gameMode.getPlayer()->Move("right");
 				}
 			}
 
 			TilesMenu.EventUpdate(window, event);
+			if (TilesMenu.getMenuState() == "UI-Play")
+			{
+	//			gameMode.EventUpdate(event);
+			}
 		}
 
 		TilesMenu.Update();
 		if (TilesMenu.getMenuState() == "UI-Play")
 		{
-			TilesBoard.Update();
-			Player.Update();
+			gameMode.Update();
 		}
 
 		if (TilesMenu.getMenuState() == "UI-Menu")		//optomise this later

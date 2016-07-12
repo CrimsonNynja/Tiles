@@ -21,7 +21,7 @@ void Board::CreateBoard(int RowSize, int CollumnSize)	//row and collumn may be r
 		Tiles.push_back(new Tile());
 	}
 
-	TempTile = new Tile;
+	TempTile = new Tile;							//for some reason this tile cannot fade in or out
 	TempTile->setPosition(-200, -200);				//set the Tile off screen
 	TempTile->setHidden(true);
 	ImgHandler->AddToDrawList("Game", TempTile);
@@ -95,11 +95,11 @@ int Board::getTileIndex(int row, int collumn)
 	}
 	else
 	{
-		std::cout << "the specified tile is out of the bounds of the board of size: " << rowSize << ", " << collumnSize << std::endl;
+		//std::cout << "the specified tile is out of the bounds of the board of size: " << rowSize << ", " << collumnSize << std::endl;
 		return -1;
 	}
 
-	std::cout << "error, cannot fid the tile at: " << row << ", " << collumn << std::endl;
+	//std::cout << "error, cannot fid the tile at: " << row << ", " << collumn << std::endl;
 	return -1;
 }
 
@@ -108,13 +108,13 @@ int Board::getBoardSize()
 	return (rowSize * collumnSize);
 }
 
-void Board::MoveRow(int RowNo)
+void Board::MoveRow(int RowNo)		//the fading in does not work
 {
 	Tile* Temp;
 	bMoving = true;
 	FunctPointer = &Board::MoveRow;
 	FptrBordMoving = RowNo;
-	MoveDirection = -1;
+	MoveDirection = 1;
 
 	/* get all the nessasary tiles */
 	for (unsigned i = 1; i < collumnSize + 1; i++)
@@ -126,12 +126,12 @@ void Board::MoveRow(int RowNo)
 	}
 
 	/* set the Temp tile to the end of the row */
-	TempTile->setHidden(false);
+	TempTile->FadeIn();
 	if (MoveDirection == 1)
 	{
 		TempTile->setPosition(getTile(RowNo, 1)->getPosition().x - TempTile->getGlobalBounds().width, getTile(RowNo, 1)->getPosition().y);
 	}
-	else if (MoveDirection == -1)
+	else if (MoveDirection == -1)	//error up on certain unknown occasions
 	{
 		TempTile->setPosition(getTile(RowNo, collumnSize)->getPosition().x + TempTile->getGlobalBounds().width, getTile(RowNo, 1)->getPosition().y);
 	}
@@ -146,7 +146,7 @@ void Board::MoveRow(int RowNo)
 		{
 			Temp = TempTile;
 			TempTile = Tiles[getTileIndex(RowNo, collumnSize)];
-			for (unsigned i = 12; i > 1; i--)	//from 12-2
+			for (unsigned i = collumnSize; i > 1; i--)	//from 12-2
 			{
 				Tiles[getTileIndex(RowNo, i)] = Tiles[getTileIndex(RowNo, i - 1)];
 			}
@@ -166,11 +166,84 @@ void Board::MoveRow(int RowNo)
 		}
 
 		//should set the tiles to an exact position here as well///////////////////
+		/* Set all moved pieces to an exact position, as to keep the board snapped in place */
+		if (MoveDirection == 1)
+		{
+
+		}
+		else
+		{
+
+		}
+
 		bMoving = false;
 		MoveDirection = 0;
 		FunctPointer = NULL;
 	}
-	/*  */
+}
+
+void Board::MoveCollumn(int CollumnNo)
+{
+	Tile* Temp;
+	bMoving = true;
+	FunctPointer = &Board::MoveCollumn;
+	FptrBordMoving = CollumnNo;
+	MoveDirection = 1;	//error after finishing
+
+	/* get all the nessasary tiles */
+	for (unsigned i = 1; i < rowSize + 1; i++)
+	{
+		if (getTileIndex(CollumnNo, i) != -1)
+		{
+			Tiles[getTileIndex(i, CollumnNo)]->setPosition(Tiles[getTileIndex(i, CollumnNo)]->getPosition().x, Tiles[getTileIndex(i, CollumnNo)]->getPosition().y + (5 * MoveDirection));
+		}
+	}
+
+	/* set the Temp tile to the end of the row */
+	TempTile->FadeIn();
+	if (MoveDirection == 1)
+	{
+		TempTile->setPosition(getTile(1, CollumnNo)->getPosition().x, getTile(1, CollumnNo)->getPosition().y - TempTile->getGlobalBounds().height);
+	}
+	else if (MoveDirection == -1)
+	{
+		TempTile->setPosition(getTile(rowSize, CollumnNo)->getPosition().x, getTile(1, CollumnNo)->getPosition().y + TempTile->getGlobalBounds().height);
+	}
+
+	/* Test if the row has moved a tiles length */
+	if ((MoveDirection == 1 && (Tiles[getTileIndex(1, CollumnNo)]->getPosition().y
+		>= Tiles[getTileIndex(1, CollumnNo)]->getLastPosition().y + Tiles[getTileIndex(1, CollumnNo)]->getGlobalBounds().height))
+		|| (MoveDirection == -1 && (Tiles[getTileIndex(1, CollumnNo)]->getPosition().y
+			<= Tiles[getTileIndex(1, CollumnNo)]->getLastPosition().y - Tiles[getTileIndex(1, CollumnNo)]->getGlobalBounds().height)))
+	{
+		if (MoveDirection == 1)
+		{
+			Temp = TempTile;
+			TempTile = Tiles[getTileIndex(rowSize, CollumnNo)];
+			for (unsigned i = rowSize; i > 1; i--)	//from 12-2
+			{
+				Tiles[getTileIndex(i, CollumnNo)] = Tiles[getTileIndex(i - 1, CollumnNo)];
+			}
+			Tiles[getTileIndex(1, CollumnNo)] = Temp;
+			Temp = NULL;
+		}
+		else
+		{
+			Temp = TempTile;
+			TempTile = Tiles[getTileIndex(1, CollumnNo)];
+			for (unsigned i = 1; i < rowSize; i++)	//from 1-11
+			{
+				Tiles[getTileIndex(i, CollumnNo)] = Tiles[getTileIndex(i + 1, CollumnNo)];
+			}
+			Tiles[getTileIndex(rowSize, CollumnNo)] = Temp;
+			Temp = NULL;
+		}
+
+		//should set the tiles to an exact position here as well///////////////////
+		bMoving = false;
+		MoveDirection = 0;
+		FunctPointer = NULL;
+	}
 }
 
 bool Board::IsOnBoundry(int index)
@@ -205,7 +278,7 @@ void Board::Update()
 	{
 		for (auto x: Tiles)
 		{
-			x->setLastPosition();
+		//	x->setLastPosition();
 		}
 	}
 

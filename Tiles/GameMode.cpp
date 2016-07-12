@@ -2,14 +2,14 @@
 
 GameMode::GameMode()
 {
-
+	gameType = "NONE";
 }
 
 void GameMode::Initialize()
 {
-	GameBoard.CreateBoard(7, 12);
+	srand(std::time(NULL));
 
-	Player.setPosition(GameBoard.getTile(0)->getPosition());
+	GameBoard.CreateBoard(7, 12);
 
 	for (unsigned i = 0; i < GameBoard.getBoardSize(); i ++)
 	{
@@ -17,9 +17,24 @@ void GameMode::Initialize()
 	}
 	CollisionMngr.AddComponent(Player.getCollisionComponent());
 
+	Player.setPosition(GameBoard.getTile(0)->getPosition().x, GameBoard.getTile(0)->getPosition().y - 100);
 
+	Timer.restart();
+}
 
-	GameBoard.MoveRow(2);
+void GameMode::Reset()
+{
+	Timer.restart();
+}
+
+std::string GameMode::getGameType()
+{
+	return gameType;
+}
+
+TilesPlayer* GameMode::getPlayer()
+{
+	return &Player;
 }
 
 void GameMode::Update()		//need to move the timer here as well
@@ -28,4 +43,6 @@ void GameMode::Update()		//need to move the timer here as well
 
 	GameBoard.Update();
 	Player.Update();
+
+	TimeElapsed = Timer.getElapsedTime();
 }

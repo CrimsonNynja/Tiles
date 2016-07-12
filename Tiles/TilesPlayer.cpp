@@ -7,7 +7,7 @@ TilesPlayer::TilesPlayer()
 	this->drawLayer = 2;
 	ImageHandler::instance()->AddToDrawList("Game", this);
 
-	getCollisionComponent()->AddCollisionMask(sf::Vector2f(0, 100), sf::Vector2f(144, 124));	//stuffs up the collision somewhere, dont know where
+	getCollisionComponent()->AddCollisionMask(sf::Vector2f(0, 100), sf::Vector2f(144, 124));
 }
 
 void TilesPlayer::LoadFromProfile(Profile* profile)
@@ -77,6 +77,16 @@ bool TilesPlayer::IsMoving()
 	return true;
 }
 
+GUI* TilesPlayer::getGUI()
+{
+	return &gui;
+}
+
+int TilesPlayer::getScore() const
+{
+	return score;
+}
+
 void TilesPlayer::Update()	//note the player dies upon startng the match, then works as intended
 {
 	__super::Update();
@@ -87,7 +97,7 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 	
 	bool bOnBoard = false;
 
-	if (getCollisionComponent()->ObjectsInContactWith.size() > 0)
+	if (getCollisionComponent()->ObjectsInContactWith.size() > 0)		//not finding any collisions on spawn
 	{
 		for (auto x: getCollisionComponent()->ObjectsInContactWith)
 		{
@@ -105,9 +115,10 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 					gui.AddCurrency(Dummy->getscoreAmmount(), Dummy->getPosition());
 				}
 				x->Owner->setPosition(-200, -200);
+				dynamic_cast<Pickup*>(x->Owner)->setHidden(true);
 				dynamic_cast<Pickup*>(x->Owner)->Reset();
 			}
-			if (dynamic_cast<Tile*>(x->Owner))
+			if (dynamic_cast<Tile*>(x->Owner) && dynamic_cast<Tile*>(x->Owner)->IsHidden() == false)
 			{
 				bOnBoard = true;
 			}
@@ -120,7 +131,7 @@ void TilesPlayer::Update()	//note the player dies upon startng the match, then w
 		this->Die();
 	}
 	
-	if (bIsDead == false)
+	//if (bIsDead == false)
 	{
 		//move code
 		if (Direction == RIGHT)

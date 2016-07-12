@@ -54,6 +54,9 @@ void TextureHandler::ReloadTextures()
 	Textures[currentTexturePack]["PauseButtonIA"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Inactive.png");
 	Textures[currentTexturePack]["PauseButtonH"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Hover.png");
 
+	Textures[currentTexturePack]["TextBox"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "TextBox.png");
+
+
 //	for (unsigned int i = 0; i < Textures[currentTexturePack].size(); i ++)
 //	{		
 //		Textures[currentTexturePack][i].setSmooth(StringToBool(getValueFromFile("Antialiasing", "Default.ini")));

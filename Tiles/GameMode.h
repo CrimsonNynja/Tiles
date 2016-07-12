@@ -5,30 +5,27 @@
 #include "TilesPlayer.h"
 #include "Board.h"
 #include "Profile.h"
-
+#include "Pickup.h"
+#include <ctime>
 
 class GameMode
 {
 public:
 	GameMode();
 	void Initialize();
+	void Reset();
 	std::string getGameType();
+	TilesPlayer* getPlayer();
 	void Update();
 
 protected:
 	CollisionManager CollisionMngr;
 	Board GameBoard;
 	TilesPlayer Player;
+	std::vector<Pickup*> Pickups;
 
 	sf::Clock Timer;
 	sf::Time TimeElapsed;
 
-	enum gameType//may havethe gametypes extend off of this, and they can then just overide the Update() function to do their own unique thing
-	{
-		DEFAULT = 0,
-		ENDLESS,
-		SURVIVAL,
-		TUTORIAL
-	} GameType;
-
+	std::string gameType;
 };

@@ -105,6 +105,12 @@
     <ClCompile Include="GameMode.cpp">
       <Filter>Tiles\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultGameType.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialGameMode.cpp">
+      <Filter>Tiles\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -183,6 +189,12 @@
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pickup.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultGameType.h">
+      <Filter>Tiles\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialGameMode.h">
       <Filter>Tiles\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

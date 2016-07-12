@@ -17,6 +17,7 @@ private:
 	std::vector<CollisionComponent*> CollisionObjects;
 	float MakePositive(float arg1, float arg2);
 
+	/* points used to calculate the collision */
 	sf::Vector2f xAxisProduct;		//centre point to centre point
 	sf::Vector2f yAxisProduct;
 	sf::Vector2f C1DataX;

@@ -17,6 +17,8 @@ public:
 	void SaveToProfile(Profile* profile);
 	void Move(std::string direction);
 	bool IsMoving();
+	GUI* getGUI();
+	int getScore() const;
 	void Update();
 
 private:

@@ -7,7 +7,7 @@ Pickup::Pickup()
 	Reset();
 	this->setAnimation(TextureHandler::instance()->getTexture("Pickup"), 144, 124);	//should make this dependednt on the enum, when more images have been added
 	this->drawLayer = 3;
-	ImageHandler::instance()->AddToDrawList("Game", this);
+	//ImageHandler::instance()->AddToDrawList("Game", this);
 }
 
 void Pickup::Reset()
