@@ -17,6 +17,7 @@ public:
 	std::string getGameType();
 	TilesPlayer* getPlayer();
 	void Update();
+	void EventUpdate(sf::Event event);
 
 protected:
 	CollisionManager CollisionMngr;

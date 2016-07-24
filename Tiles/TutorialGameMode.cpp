@@ -2,7 +2,7 @@
 
 TutorialGameMode::TutorialGameMode()
 {
-	MessageText.setPosition(600,  900);		//not the right position, will fix when a text box has been created
+	MessageText.setPosition(600, 900);		//not the right position, will fix when a text box has been created
 	TooltipText.setPosition(500, 170);		//as above
 	MessageText.setCharacterSize(40);
 	TooltipText.setCharacterSize(20);
@@ -23,8 +23,6 @@ TutorialGameMode::TutorialGameMode()
 	ImgHandler->AddToDrawList("Game", &MessageText);
 	ImgHandler->AddToDrawList("Game", &TooltipText);
 	ImgHandler->AddToDrawList("Game", &TextBox);
-
-
 }
 
 void TutorialGameMode::Initialize()
@@ -50,8 +48,10 @@ void TutorialGameMode::EventUpdate(sf::Event event)
 	{
 		messageIndex += 1;
 	}
-	if (tooltipIndex == 1)
+	if (bPaused == false)
 	{
+		__super::EventUpdate(event);
+		
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
@@ -88,10 +88,7 @@ void TutorialGameMode::Update()
 		x->Update();
 	}
 
-	if (bPaused == false)
-	{
-		Player.Update();
-	}
+	Player.Update();
 
 /*	if (Player.IsDead() == true)
 	{
@@ -103,8 +100,15 @@ void TutorialGameMode::Update()
 
 void TutorialGameMode::UpdateTutorial()		//add a hidden option for GameText
 {
-	MessageText.setString(TutorialMessages[messageIndex]);
-	TooltipText.setString(ToolTips[tooltipIndex]);
+	try
+	{
+		MessageText.setString(TutorialMessages.at(messageIndex));
+		TooltipText.setString(ToolTips.at(tooltipIndex));
+	}
+	catch (const std::out_of_range& e)
+	{
+		MessageText.setString("You have now completed the tutorial");
+	}
 
 	if (tooltipIndex == 0)
 	{
@@ -140,6 +144,23 @@ void TutorialGameMode::UpdateTutorial()		//add a hidden option for GameText
 		{
 			bPaused = true;
 			messageIndex += 1;
+			tooltipIndex = 0;
+		}
+	}
+	else if (messageIndex == 6)
+	{
+		Pickups[0]->setPosition(GameBoard.getTile(15)->getPosition());
+		Pickups[0]->setScoreType("COIN");
+	}
+	else if (messageIndex == 8)
+	{
+		bPaused = false;
+		tooltipIndex = 3;
+		if (Player.getCurrency() >= 1)
+		{
+			bPaused = true;
+			messageIndex += 1;
+			tooltipIndex = 0;
 		}
 	}
 	else if (messageIndex == 15)

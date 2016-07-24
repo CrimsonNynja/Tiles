@@ -44,6 +44,7 @@ void TextureHandler::ReloadTextures()
 
 	Textures[currentTexturePack]["Tile"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Tile_Temp.png");
 	Textures[currentTexturePack]["Pickup"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Pickup.png");
+	Textures[currentTexturePack]["Coin"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "Coin.png");
 
 	Textures[currentTexturePack]["Player"].loadFromFile(getValueFromFile("Directory", "Default.ini") + "TestPlayer.png");
 

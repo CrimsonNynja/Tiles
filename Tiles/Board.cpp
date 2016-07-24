@@ -199,7 +199,7 @@ void Board::MoveCollumn(int CollumnNo)
 		}
 	}
 
-	/* set the Temp tile to the end of the row */
+	/* set the Temp tile to the end of the collumn */
 	TempTile->FadeIn();
 	if (MoveDirection == 1)
 	{
@@ -207,10 +207,10 @@ void Board::MoveCollumn(int CollumnNo)
 	}
 	else if (MoveDirection == -1)
 	{
-		TempTile->setPosition(getTile(rowSize, CollumnNo)->getPosition().x, getTile(1, CollumnNo)->getPosition().y + TempTile->getGlobalBounds().height);
+		TempTile->setPosition(getTile(rowSize, CollumnNo)->getPosition().x, getTile(rowSize, CollumnNo)->getPosition().y + TempTile->getGlobalBounds().height);
 	}
 
-	/* Test if the row has moved a tiles length */
+	/* Test if the collumn has moved a tiles length */
 	if ((MoveDirection == 1 && (Tiles[getTileIndex(1, CollumnNo)]->getPosition().y
 		>= Tiles[getTileIndex(1, CollumnNo)]->getLastPosition().y + Tiles[getTileIndex(1, CollumnNo)]->getGlobalBounds().height))
 		|| (MoveDirection == -1 && (Tiles[getTileIndex(1, CollumnNo)]->getPosition().y
@@ -278,7 +278,7 @@ void Board::Update()
 	{
 		for (auto x: Tiles)
 		{
-		//	x->setLastPosition();
+			x->setLastPosition();
 		}
 	}
 

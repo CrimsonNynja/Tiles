@@ -11,6 +11,7 @@ public:
 	Pickup();
 	void Reset();
 	int getscoreAmmount() const;
+	void setScoreType(std::string Type);
 	std::string getType();
 	void Update();
 

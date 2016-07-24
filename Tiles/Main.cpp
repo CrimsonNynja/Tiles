@@ -34,11 +34,9 @@ int main()
 	Menu TilesMenu;
 
 	Profile PlayerProfile;
-	DefaultGameType gameMode;
-	//TutorialGameMode gameMode;
-
+	//DefaultGameType gameMode;
+	TutorialGameMode gameMode;
 	gameMode.Initialize();
-	//TilesBoard.PlacePlayer(&Player, 0, 0);
 
 
 	while (window.isOpen())
@@ -50,30 +48,11 @@ int main()
 			{
 				window.close();
 			}
-			if (event.type == sf::Event::KeyPressed)//&& Player.IsMoving() == false	//half works
-			{
-				if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
-				{
-					gameMode.getPlayer()->Move("up");
-				}
-				if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
-				{
-					gameMode.getPlayer()->Move("down");
-				}
-				if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
-				{
-					gameMode.getPlayer()->Move("left");
-				}
-				if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
-				{
-					gameMode.getPlayer()->Move("right");
-				}
-			}
-
+			
 			TilesMenu.EventUpdate(window, event);
 			if (TilesMenu.getMenuState() == "UI-Play")
 			{
-	//			gameMode.EventUpdate(event);
+				gameMode.EventUpdate(event);
 			}
 		}
 
@@ -89,7 +68,7 @@ int main()
 		//	TilesBoard.PlacePlayer(&Player, 0, 0);
 		}
 
-		//draws
+		/* Draw calls */
 		window.clear(sf::Color::White);
 		if (TilesMenu.getMenuState() == "UI-Play" || TilesMenu.getMenuState() == "UI-Pause")
 		{

@@ -18,4 +18,6 @@ protected:
 	bool bMoved = false;
 	bool bFaded = false;
 	int randVar = 0;
+	unsigned int fadeCount = 0;
+	unsigned int fadeMax = 7;
 };

@@ -18,6 +18,7 @@ DefaultGameType::DefaultGameType()
 void DefaultGameType::Update()
 {
 	__super::Update();
+
 	for (auto x: Pickups)
 	{
 		x->Update();
@@ -30,42 +31,40 @@ void DefaultGameType::Update()
 		}
 	}
 
-	if (bMoved == false)
+	if (static_cast<int>(TimeElapsed.asSeconds()) == moveCount && bMoved == false)
 	{
-		if (static_cast<int>(TimeElapsed.asSeconds()) == moveCount)
+		randVar = rand() % 2;
+
+		if (randVar == 0)
 		{
-			randVar = rand() % 2;
-
-			if (randVar == 0)
-			{
-				randVar = rand() % 6 + 1;		//make dynamic later
-				GameBoard.MoveRow(randVar);
-			}
-			else if (randVar == 1)
-			{
-				randVar = rand() % 11 + 1;		//make dyncamic later
-				GameBoard.MoveCollumn(randVar);
-			}
-
-			time = TimeElapsed.asSeconds();
-			bMoved = true;
+			randVar = rand() % 6 + 1;		//make dynamic later
+			GameBoard.MoveRow(randVar);
 		}
-		if (static_cast<int>(TimeElapsed.asSeconds()) == FadeCount && bFaded == false)
+		else if (randVar == 1)
+		{
+			randVar = rand() % 11 + 1;		//make dyncamic later
+			GameBoard.MoveCollumn(randVar);
+		}
+
+		time = TimeElapsed.asSeconds();
+		bMoved = true;
+	}
+	if (static_cast<int>(TimeElapsed.asSeconds()) == FadeCount && bFaded == false)
+	{
+		if (fadeCount < fadeMax)
 		{
 			randVar = rand() % (GameBoard.getBoardSize() - 1);
 			GameBoard.getTile(randVar)->FadeOut();
 			bFaded = true;
+			fadeCount++;
 		}
 	}
-
-	if (static_cast<int>(TimeElapsed.asSeconds()) == (time + 1))	//may move ths in to the below statement as well
-	{
-		bMoved = false;
-	}
+	
 
 	if (static_cast<int>(TimeElapsed.asSeconds()) == 9)
 	{
 		Timer.restart();
 		bFaded = false;
+		bMoved = false;
 	}
 }

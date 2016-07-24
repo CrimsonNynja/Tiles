@@ -46,3 +46,26 @@ void GameMode::Update()		//need to move the timer here as well
 
 	TimeElapsed = Timer.getElapsedTime();
 }
+
+void GameMode::EventUpdate(sf::Event event)
+{
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
+		{
+			Player.Move("up");
+		}
+		if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
+		{
+			Player.Move("down");
+		}
+		if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
+		{
+			Player.Move("left");
+		}
+		if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
+		{
+			Player.Move("right");
+		}
+	}
+}

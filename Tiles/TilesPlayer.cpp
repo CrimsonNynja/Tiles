@@ -87,6 +87,11 @@ int TilesPlayer::getScore() const
 	return score;
 }
 
+int TilesPlayer::getCurrency() const
+{
+	return currency;
+}
+
 void TilesPlayer::Update()	//note the player dies upon startng the match, then works as intended
 {
 	__super::Update();

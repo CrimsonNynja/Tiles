@@ -22,6 +22,8 @@ private:
 	unsigned int messageIndex = 0;
 	unsigned int tooltipIndex = 0;
 	unsigned short moveDirectionCount = 0;
+
+	/* Tutorial messages */
 	std::vector<std::string> TutorialMessages
 	{
 		"Hello, and Welcome to 'Tiles'",

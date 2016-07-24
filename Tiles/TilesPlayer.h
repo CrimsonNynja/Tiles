@@ -19,6 +19,7 @@ public:
 	bool IsMoving();
 	GUI* getGUI();
 	int getScore() const;
+	int getCurrency() const;
 	void Update();
 
 private:
